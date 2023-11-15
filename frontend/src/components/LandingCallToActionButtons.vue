@@ -7,7 +7,7 @@ import { RouterLink } from 'vue-router';
         <Router-Link to="login">
             <button class="landing-button-red">Log In</button>
         </Router-Link>
-        <Router-Link to="">
+        <Router-Link to="register">
             <button class="landing-button-outline">Register</button>
         </Router-Link>
     </div>

@@ -6,7 +6,7 @@ import NavBar from './components/NavBar.vue';
 <template>
   <div>
     <div class="background-image">
-      <img src="teava.jpg" alt="" srcset="">
+      <img src="teava+.jpg" alt="" srcset="">
     </div>
     <header>
       <div class="wrapper">
