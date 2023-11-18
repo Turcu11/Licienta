@@ -5,14 +5,14 @@ import { RouterLink } from 'vue-router'
 <template>
     <div>
         <nav class="nav-bar">
-            <RouterLink to="/">
+            <RouterLink :to="{name: 'landing'}">
                 <img class="nav-bar-logo" src="Logo white.png" alt="" srcset="">
             </RouterLink>
         </nav>
     </div>
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
 .nav-bar {
     display: flex;
     align-items: center;

@@ -8,9 +8,7 @@ import RegisterContent from '../components/RegisterContent.vue';
         </div>
 </template>
 
-
 <style scoped>
-
 .register-card-position {
     margin-top: 5rem;
     margin-left: 13rem;

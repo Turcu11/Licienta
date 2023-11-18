@@ -47,4 +47,57 @@ import { RouterLink } from 'vue-router';
     font-weight: 600;
     line-height: normal;
 }
-</style>
+
+@media (max-width: 1200px) {
+    .landing-buttons {
+        margin-left: 8rem;
+    }
+}
+
+@media (max-width: 992px) {
+    .landing-buttons {
+        margin-left: 6rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .landing-buttons {
+        margin-left: 4rem;
+    }
+}
+
+@media (max-width: 600px) {
+    .landing-buttons {
+        margin-left: 3rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .landing-buttons {
+        padding-top: 4rem;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .landing-button-outline{
+        margin-top: 2rem;
+        margin-left: 0px;;
+    }
+}
+
+@media (max-width: 320px) {
+    .landing-buttons {
+        padding-top: 4rem;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .landing-button-outline{
+        margin-top: 2rem;
+        margin-left: 0px;;
+    }
+}</style>

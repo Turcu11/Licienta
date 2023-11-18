@@ -18,7 +18,7 @@ import { RouterLink } from 'vue-router';
         <div class="register-options">
             <p class="register-option-line">
                 Already have an account ?
-                <RouterLink to="login">
+                <RouterLink :to="{name: 'login'}">
                     <span class="register-options-links">
                         Click here
                     </span>
