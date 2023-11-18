@@ -6,7 +6,9 @@ import BackgroundImage from './components/BackgroundImage.vue';
 
 <template>
   <div>
-    <BackgroundImage/>
+    <div>  
+      <BackgroundImage/>
+    </div>
     <header>
       <!-- <div class="wrapper"> -->
         <NavBar />
