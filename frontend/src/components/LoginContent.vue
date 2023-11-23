@@ -22,7 +22,7 @@ import { RouterLink } from 'vue-router';
             </p>
             <p class="login-option-line">
                 Don't have an account?
-                <RouterLink :to="{name: 'register'}">
+                <RouterLink :to="{ name: 'register' }">
                     <span class="login-options-links">
                         Register now
                     </span>
@@ -122,5 +122,56 @@ textarea {
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+@media (max-width: 768px) {
+    .login-inputs {
+        width: 23rem;
+        height: 3rem;
+    }
+
+    .login-button-red {
+        width: 23rem;
+        height: 3.125rem;
+    }
+}
+@media (max-width: 600px) {
+    .login-inputs {
+        width: 18rem;
+        height: 3rem;
+    }
+
+    .login-button-red {
+        width: 18rem;
+        height: 3.125rem;
+    }
+}
+@media (max-width: 480px) {
+    .login-title {
+        font-size: 1.5rem;
+    }
+    .login-inputs {
+        width: 15rem;
+        height: 3rem;
+    }
+
+    .login-button-red {
+        width: 15rem;
+        height: 3.125rem;
+    }
+}
+@media (max-width: 440px) {
+    .login-title {
+        font-size: 1.3rem;
+    }
+    .login-inputs {
+        width: 13rem;
+        height: 3rem;
+    }
+
+    .login-button-red {
+        width: 13rem;
+        height: 3.125rem;
+    }
 }
 </style>

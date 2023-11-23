@@ -81,9 +81,11 @@ import { RouterLink } from 'vue-router';
         justify-content: center;
         align-items: center;
     }
-    .landing-button-outline{
+
+    .landing-button-outline {
         margin-top: 2rem;
-        margin-left: 0px;;
+        margin-left: 0px;
+        ;
     }
 }
 
@@ -96,8 +98,9 @@ import { RouterLink } from 'vue-router';
         justify-content: center;
         align-items: center;
     }
-    .landing-button-outline{
+
+    .landing-button-outline {
         margin-top: 2rem;
-        margin-left: 0px;;
+        margin-left: 0px;
     }
 }</style>

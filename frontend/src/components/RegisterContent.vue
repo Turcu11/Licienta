@@ -117,4 +117,57 @@ textarea {
     display: flex;
     flex-direction: column;
     align-items: center;
-}</style>
+}
+
+@media (max-width: 768px) {
+    .register-inputs {
+        width: 23rem;
+        height: 3rem;
+    }
+
+    .register-button-red {
+        width: 23rem;
+        height: 3.125rem;
+    }
+}
+@media (max-width: 600px) {
+    .register-inputs {
+        width: 18rem;
+        height: 3rem;
+    }
+
+    .register-button-red {
+        width: 18rem;
+        height: 3.125rem;
+    }
+}
+@media (max-width: 480px) {
+    .register-title {
+        font-size: 1.5rem;
+    }
+    .register-inputs {
+        width: 15rem;
+        height: 3rem;
+    }
+
+    .register-button-red {
+        width: 15rem;
+        height: 3.125rem;
+    }
+}
+@media (max-width: 440px) {
+    .register-title {
+        font-size: 1.3rem;
+    }
+    .register-inputs {
+        width: 13rem;
+        height: 3rem;
+    }
+
+    .register-button-red {
+        width: 13rem;
+        height: 3.125rem;
+    }
+}
+
+</style>
