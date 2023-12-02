@@ -30,12 +30,18 @@ import { RouterLink } from 'vue-router';
             </p>
         </div>
         <div class="login-button">
-            <button class="login-button-red">Login</button>
+            <RouterLink :to="{name: 'mainView'}">
+                <button class="login-button-red">Login</button>
+            </RouterLink>
         </div>
     </div>
 </template>
 
 <style scoped>
+*{
+    font-family: inter;
+}
+
 .login-options-links {
     color: #C12323;
     text-decoration: underline;

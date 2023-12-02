@@ -15,6 +15,7 @@
     color: #FFF;
     font-family: sans-serif;
     font-size: 2.5rem;
+    font-family: inter;
     font-style: normal;
     font-weight: 700;
     line-height: normal;

@@ -32,6 +32,10 @@ import { RouterLink } from 'vue-router';
 </template>
 
 <style scoped>
+*{
+    font-family: inter;
+}
+
 .register-options-links {
     color: #C12323;
     text-decoration: underline;
