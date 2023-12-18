@@ -14,7 +14,6 @@ import Posts from '../components/Posts.vue';
 <style lang="scss" scoped>
 .wraper{
     display: flex;
-    flex-direction: row;
-    justify-content: center
+    justify-content: center;
 }
 </style>

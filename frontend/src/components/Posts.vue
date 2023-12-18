@@ -1,15 +1,28 @@
 <script setup>
+import { ref } from 'vue';
+import PostCard from './PostCard.vue';
+let results = ref(46); //this is just an example, you can use your own data
 
 </script>
 
 <template>
-    <div class="wraper">
-        <div class="view-title"> a title</div>
+    <div class="wrapper">
+        <div class="view-title">Found {{ results }} results</div>
+        <div class="cards">
+            <div class="post-cards-container">
+                <PostCard title="Radiator wont heat" image="radiator.png" description="Lorem ipsum dolor sit amet consectetur. Sagittis commodo ipsum amet id non commodo. Nulla tristique turpis tempus sit dictumst nisi condimentum nunc vestibulum." posted-by="John Doe" price-offer="20" posted-at="just now"/>
+                <PostCard title="Radiator wont heat" image="radiator.png" description="Lorem ipsum dolor sit amet consectetur. Sagittis commodo ipsum amet id non commodo. Nulla tristique turpis tempus sit dictumst nisi condimentum nunc vestibulum." posted-by="Marack Obama" price-offer="150" posted-at="3h ago"/>
+                <PostCard title="Radiator wont heat" image="radiator.png" description="Lorem ipsum dolor sit amet consectetur. Sagittis commodo ipsum amet id non commodo. Nulla tristique turpis tempus sit dictumst nisi condimentum nunc vestibulum." posted-by="Chris Tomlin" price-offer="80" posted-at="30m ago"/>
+                <!-- Add more PostCard components as needed -->
+            </div>
+        </div>
     </div>
 </template>
 
-<style scoped>
-.wraper{
+<style scoped lang="scss">
+.wrapper {
+    display: flex;
+    flex-direction: column;
     margin-top: 1.8rem;
     margin-left: 1.75rem;
     width: 80rem;
@@ -17,5 +30,30 @@
     border-radius: 1.25rem;
     background-color: #343434;
 }
-/* Your component-specific styles here */
-</style>
+
+.cards {
+    margin-top: 1.8rem;
+    margin-left: 4rem;
+    margin-bottom: 2rem;
+    border-radius: 1.25rem;
+    background-color: #343434;
+    overflow: auto;
+}
+
+.post-cards-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.view-title {
+    color: #FFF;
+    font-family: Inter;
+    font-size: 1.75rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    margin-top: 3rem;
+    margin-left: 4rem;
+}
+
+/* Your component-specific styles here */</style>
