@@ -1,11 +1,29 @@
 <script setup>
+import {ref, onMounted, onUnmounted} from 'vue';
+
 import SideBar from '../components/SideBar.vue';
 import Posts from '../components/Posts.vue';
+
+let screenSize = ref(window.innerWidth);
+
+const updateScreenSize = () => {
+    screenSize.value = window.innerWidth;
+};
+
+onMounted(() => {
+    window.addEventListener('resize', updateScreenSize);
+});
+
+onUnmounted(() => {
+    window.removeEventListener('resize', updateScreenSize);
+});
 </script>
     
 <template>
     <div class="wraper">
-        <SideBar/>
+        <div v-if="screenSize > 1000">
+            <SideBar/>
+        </div>
         <Posts/>
     </div>
 </template>
@@ -16,4 +34,5 @@ import Posts from '../components/Posts.vue';
     display: flex;
     justify-content: center;
 }
+
 </style>

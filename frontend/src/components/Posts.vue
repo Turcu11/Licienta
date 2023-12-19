@@ -10,9 +10,9 @@ let results = ref(46); //this is just an example, you can use your own data
         <div class="view-title">Found {{ results }} results</div>
         <div class="cards">
             <div class="post-cards-container">
-                <PostCard title="Radiator wont heat" image="radiator.png" description="Lorem ipsum dolor sit amet consectetur. Sagittis commodo ipsum amet id non commodo. Nulla tristique turpis tempus sit dictumst nisi condimentum nunc vestibulum." posted-by="John Doe" price-offer="20" posted-at="just now"/>
-                <PostCard title="Radiator wont heat" image="radiator.png" description="Lorem ipsum dolor sit amet consectetur. Sagittis commodo ipsum amet id non commodo. Nulla tristique turpis tempus sit dictumst nisi condimentum nunc vestibulum." posted-by="Marack Obama" price-offer="150" posted-at="3h ago"/>
-                <PostCard title="Radiator wont heat" image="radiator.png" description="Lorem ipsum dolor sit amet consectetur. Sagittis commodo ipsum amet id non commodo. Nulla tristique turpis tempus sit dictumst nisi condimentum nunc vestibulum." posted-by="Chris Tomlin" price-offer="80" posted-at="30m ago"/>
+                <PostCard title="Radiator wont heat" image="radiator.png" description="Lorem ipsum dolor sit amet consectetur. Sagittis commodo ipsum amet id non commodo. Nulla tristique turpis tempus sit dictumst nisi condimentum nunc vestibulum." posted-by="John Doe" :price-offer=20 posted-at="just now"/>
+                <PostCard title="Radiator wont heat" image="radiator.png" description="Lorem ipsum dolor sit amet consectetur. Sagittis commodo ipsum amet id non commodo. Nulla tristique turpis tempus sit dictumst nisi condimentum nunc vestibulum." posted-by="Marack Obama" :price-offer=150 posted-at="3h ago"/>
+                <PostCard title="Radiator wont heat" image="radiator.png" description="Lorem ipsum dolor sit amet consectetur. Sagittis commodo ipsum amet id non commodo. Nulla tristique turpis tempus sit dictumst nisi condimentum nunc vestibulum." posted-by="Chris Tomlin" :price-offer=80 posted-at="30m ago"/>
                 <!-- Add more PostCard components as needed -->
             </div>
         </div>
@@ -54,6 +54,62 @@ let results = ref(46); //this is just an example, you can use your own data
     line-height: normal;
     margin-top: 3rem;
     margin-left: 4rem;
+}
+
+@media (max-width: 1600px) {
+    .wrapper {
+        width: 60rem;
+    }
+    
+}
+
+@media (max-width: 1250px) {
+    .wrapper {
+        width: 50rem;
+    }
+    .cards {
+        margin-left: 3rem;
+    }
+    
+}
+
+@media (max-width: 1100px) {
+    .wrapper {
+        width: 40rem;
+    }
+    
+}
+
+@media (max-width: 768px) {
+    .wrapper{
+        width: 31rem;        
+    }
+}
+
+@media (max-width: 600px) {
+    .wrapper {
+        width: 26rem;        
+    }
+}
+
+@media (max-width: 480px) {
+    .wrapper {
+        margin-left: 0rem;
+        width: 20rem;        
+    }
+    .cards {
+        margin-left: 1rem;
+    }
+}
+
+@media (max-width: 360px) {
+    .wrapper {
+        margin-left: 0rem;
+        width: 16rem;        
+    }
+    .cards{
+        margin-left: 1rem;
+    }
 }
 
 /* Your component-specific styles here */</style>
