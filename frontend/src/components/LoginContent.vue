@@ -1,5 +1,12 @@
 <script setup>
+import {ref} from 'vue';
 import { RouterLink } from 'vue-router';
+import { useUserLoginData } from '../stores/userLoginData';
+const email = ref('');
+const userData = useUserLoginData();
+const getUserByEmail = (email) => {
+    userData.getUser(email);
+}
 </script>
 
 <template>
@@ -7,7 +14,7 @@ import { RouterLink } from 'vue-router';
         <h1 class="login-title">Log in to see al the posts, <br> or to post a new request</h1>
         <div class="login-credentials">
             <p class="login-paragraph">Mail goes gere</p>
-            <input class="login-inputs" type="text" placeholder="somebody@gmail.com">
+            <input id="userMail" v-model="email" class="login-inputs" type="text" placeholder="somebody@gmail.com">
             <p class="login-paragraph">Password goes here</p>
             <input class="login-inputs" type="password" placeholder="*************">
         </div>
@@ -30,9 +37,9 @@ import { RouterLink } from 'vue-router';
             </p>
         </div>
         <div class="login-button">
-            <RouterLink :to="{name: 'mainView'}">
-                <button class="login-button-red">Login</button>
-            </RouterLink>
+            <!-- <RouterLink :to="{name: 'mainView'}"> -->
+                <button class="login-button-red" @click="getUserByEmail(email)">Login</button>
+            <!-- </RouterLink> -->
         </div>
     </div>
 </template>
