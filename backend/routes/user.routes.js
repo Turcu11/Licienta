@@ -36,7 +36,7 @@ router.get("/email/:email", async (req, res) => {
 ///create a user
 router.post("/", async (req, res) => {
     try {
-        console.log(req.body); // Add this line to log the request body
+        console.log(req.body);
         const user = await Users.create(req.body);
         res.json(user);
     } catch (err) {

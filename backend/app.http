@@ -7,12 +7,4 @@ GET http://127.0.0.1:3000/users/email/turcu.iosif@email.com
 POST http://127.0.0.1:3000/users
 Content-Type: application/json
 
-{
-    "fullName": "Turcu Iosif",
-    "password": "password",
-    "email": "turcu.iosif@email.com",
-    "isServiceProvider": true,
-    "rating": 3,
-    "address": "White House",
-    "phone": "1234567890"
-}
+{"fullName": "Turcu Iosif","password": "password","email": "turcu.iosif@email.com"}

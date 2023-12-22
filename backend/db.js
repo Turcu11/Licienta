@@ -33,7 +33,7 @@ export const Users = sequelize.define(
         fullName: {
             type: DataTypes.STRING(20),
             allowNull: false,
-            unique: true,
+            unique: false,
         },
         password: {
             type: DataTypes.STRING(20),
@@ -46,7 +46,7 @@ export const Users = sequelize.define(
         },
         isServiceProvider: {
             type: DataTypes.BOOLEAN,
-            allowNull: false,
+            allowNull: true,
         },
         rating: {
             type: DataTypes.INTEGER,
@@ -54,7 +54,7 @@ export const Users = sequelize.define(
         },
         address: {
             type: DataTypes.STRING(50),
-            allowNull: false,
+            allowNull: true,
         },
         phone: {
             type: DataTypes.STRING(20),
