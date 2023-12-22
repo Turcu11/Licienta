@@ -18,7 +18,7 @@ VALUES
     ('Graphic Design', 'Create a logo for my business', '1111 Pine St', 'Design', 'Creative and unique designs', 'Weekdays', 'Monday, Wednesday', true, false, 75, true, 'graphic_design.jpg', false, 14, 15, NOW(), NOW() );
 
 
-INSERT INTO users (fullname, password, email, isServiceProvider, rating, addres, phone, createdAt, updatedAt)
+INSERT INTO users (fullname, password, email, isServiceProvider, rating, address, phone, createdAt, updatedAt)
 VALUES
     ('John Doe', 'password1', 'john.doe@email.com', 0, 4, '123 Main St', '555-1234', NOW(), NOW() ),
     ('Jane Smith', 'password2', 'jane.smith@email.com', 1, 5, '456 Oak St', '555-5678', NOW(), NOW() ),

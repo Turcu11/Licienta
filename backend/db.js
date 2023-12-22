@@ -52,7 +52,7 @@ export const Users = sequelize.define(
             type: DataTypes.INTEGER,
             allowNull: true,
         },
-        addres: {
+        address: {
             type: DataTypes.STRING(50),
             allowNull: false,
         },
