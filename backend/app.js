@@ -18,7 +18,7 @@ app.use("/users", usersRouter);
 app.use((err, req, res, next) => {
     if (err instanceof SyntaxError && err.status === 400 && 'body' in err) {
         console.error(err);
-        return res.status(400).send({ message: "Invalid JSON payload" }); // Bad request
+        return res.status(400).send({ message: "Invalid JSON payload" });
     }
     next();
 });
