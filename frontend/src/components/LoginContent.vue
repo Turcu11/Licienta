@@ -1,12 +1,18 @@
 <script setup>
-import {ref} from 'vue';
+import { ref } from 'vue';
 import { RouterLink } from 'vue-router';
 import { useUserLoginData } from '../stores/userLoginData';
 const email = ref('');
+const password = ref('');
 const userData = useUserLoginData();
-const getUserByEmail = (email) => {
-    userData.getUser(email);
+const getUserByEmail = (email, password) => {
+    if (email == '' || email === undefined || email === null || password == '' || password === undefined || password === null) {
+        alert('Please enter your email and password');
+        return;
+    }
+    return userData.getUser(email, password);
 }
+
 </script>
 
 <template>
@@ -14,9 +20,9 @@ const getUserByEmail = (email) => {
         <h1 class="login-title">Log in to see al the posts, <br> or to post a new request</h1>
         <div class="login-credentials">
             <p class="login-paragraph">Mail goes gere</p>
-            <input id="userMail" v-model="email" class="login-inputs" type="text" placeholder="somebody@gmail.com">
+            <input v-model="email" class="login-inputs" type="text" placeholder="somebody@gmail.com">
             <p class="login-paragraph">Password goes here</p>
-            <input class="login-inputs" type="password" placeholder="*************">
+            <input v-model="password" class="login-inputs" type="password" placeholder="*************">
         </div>
         <div class="login-options">
             <p class="login-option-line">
@@ -38,14 +44,14 @@ const getUserByEmail = (email) => {
         </div>
         <div class="login-button">
             <!-- <RouterLink :to="{name: 'mainView'}"> -->
-                <button class="login-button-red" @click="getUserByEmail(email)">Login</button>
+            <button class="login-button-red" @click="getUserByEmail(email, password)">Login</button>
             <!-- </RouterLink> -->
         </div>
     </div>
 </template>
 
 <style scoped>
-*{
+* {
     font-family: inter;
 }
 
@@ -148,6 +154,7 @@ textarea {
         height: 3.125rem;
     }
 }
+
 @media (max-width: 600px) {
     .login-inputs {
         width: 18rem;
@@ -159,10 +166,12 @@ textarea {
         height: 3.125rem;
     }
 }
+
 @media (max-width: 480px) {
     .login-title {
         font-size: 1.5rem;
     }
+
     .login-inputs {
         width: 15rem;
         height: 3rem;
@@ -173,10 +182,12 @@ textarea {
         height: 3.125rem;
     }
 }
+
 @media (max-width: 440px) {
     .login-title {
         font-size: 1.3rem;
     }
+
     .login-inputs {
         width: 13rem;
         height: 3rem;
@@ -186,5 +197,4 @@ textarea {
         width: 13rem;
         height: 3.125rem;
     }
-}
-</style>
+}</style>
