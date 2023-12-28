@@ -1,5 +1,43 @@
 <script setup>
-import { RouterLink } from 'vue-router';
+import { ref } from 'vue';
+import { RouterLink, useRouter } from 'vue-router';
+import {useUserRegisterData} from '../stores/userRegisterData';
+
+const router = useRouter();
+const fullName = ref('');
+const email = ref('');
+const password = ref('');
+const passwordConfirm = ref('');
+const userData = useUserRegisterData();
+const createNewUser = async (fullName, email, password, passwordConfirm) => {
+    if (fullName == '' || 
+        fullName === undefined || 
+        fullName === null || 
+        email == '' || 
+        email === undefined || 
+        email === null || 
+        password == '' || 
+        password === undefined ||
+        password === null || 
+        passwordConfirm == '' || 
+        passwordConfirm === undefined || 
+        passwordConfirm === null) {
+        alert('Please fill in all the fields');
+        return;
+    }
+    else{
+        if(password != passwordConfirm){
+            alert('Passwords do not match');
+            return;
+        }
+        await userData.createUser(fullName, email, password);
+        if (!userData.error) {
+            router.push('/login');
+            localStorage.setItem('user', JSON.stringify(userData.user));
+        }
+    }
+}
+
 </script>
 
 <template>
@@ -7,13 +45,13 @@ import { RouterLink } from 'vue-router';
         <h1 class="register-title">Create an account</h1>
         <div class="register-credentials">
             <p class="register-paragraph">Full name goes gere</p>
-            <input class="register-inputs" type="text" placeholder="John Doe">
+            <input v-model="fullName" class="register-inputs" type="text" placeholder="John Doe">
             <p class="register-paragraph">Mail goes gere</p>
-            <input class="register-inputs" type="text" placeholder="somebody@gmail.com">
+            <input v-model="email" class="register-inputs" type="text" placeholder="somebody@gmail.com">
             <p class="register-paragraph">Password goes here</p>
-            <input class="register-inputs" type="password" placeholder="*************">
+            <input v-model="password" class="register-inputs" type="password" placeholder="*************">
             <p class="register-paragraph">Confirm the password</p>
-            <input class="register-inputs" type="password" placeholder="*************">
+            <input v-model="passwordConfirm" class="register-inputs" type="password" placeholder="*************">
         </div>
         <div class="register-options">
             <p class="register-option-line">
@@ -26,7 +64,7 @@ import { RouterLink } from 'vue-router';
             </p>
         </div>
         <div class="register-button">
-            <button class="register-button-red">Create account</button>
+            <button @click="createNewUser(fullName, email, password, passwordConfirm)" class="register-button-red">Create account</button>
         </div>
     </div>
 </template>

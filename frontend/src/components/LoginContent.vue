@@ -1,16 +1,24 @@
 <script setup>
 import { ref } from 'vue';
-import { RouterLink } from 'vue-router';
+import { RouterLink, useRouter } from 'vue-router';
 import { useUserLoginData } from '../stores/userLoginData';
+
+const router = useRouter();
 const email = ref('');
 const password = ref('');
 const userData = useUserLoginData();
-const getUserByEmail = (email, password) => {
+const getUserByEmail = async (email, password) => {
     if (email == '' || email === undefined || email === null || password == '' || password === undefined || password === null) {
         alert('Please enter your email and password');
         return;
     }
-    return userData.getUser(email, password);
+    else{
+        await userData.getUser(email, password);
+        if (!userData.error) {
+            router.push('/mainView');
+            localStorage.setItem('user', JSON.stringify(userData.user));
+        }
+    }
 }
 
 </script>
