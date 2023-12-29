@@ -8,6 +8,7 @@ defineProps({
     priceOffer: Number,
     postedBy: String,
     postedAt: String,
+    category: String
 })
 
 </script>
@@ -17,13 +18,14 @@ defineProps({
         <div class="card">
             <div class="section">
                 <div class="left">
-                    <img class="image" :src="image" alt="">
+                    <img class="image" v-if="image" :src="image">
+                    <img class="image" v-else src="/placeholder.jpg">
                 </div>
 
                 <div class="middle">
                     <h1 class="title">{{ title }}</h1>
                     <p class="description">{{ description }}</p>
-                    <p>Posted by: <span>{{ postedBy }}</span></p>
+                    <p>Categoty: {{ category }}</p>
                 </div>
 
                 <div class="right">
@@ -44,7 +46,20 @@ defineProps({
 }
 
 .left {
+    width: 10rem;
+    height: 9rem;
     margin: .95rem;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.left img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 1rem;
 }
 
 .middle p {
@@ -61,12 +76,13 @@ defineProps({
     }
 }
 
-.right,
-p {
+.right {
     display: flex;
     flex-direction: column;
     margin-top: 1rem;
-    ;
+    margin-left: auto;
+    padding-right: 2rem;
+    text-align: right;
     color: rgba(255, 255, 255, 0.75);
     font-family: Inter;
     font-weight: 300;
@@ -103,7 +119,9 @@ p {
         height: auto;
     }
 
-    .middle, p, .description{
+    .middle,
+    p,
+    .description {
         max-width: 30rem;
     }
 
@@ -114,7 +132,10 @@ p {
         width: 43rem;
         height: auto;
     }
-    .middle, p, .description{
+
+    .middle,
+    p,
+    .description {
         max-width: 25rem;
     }
 
@@ -125,7 +146,10 @@ p {
         width: 34rem;
         height: auto;
     }
-    .middle, p, .description{
+
+    .middle,
+    p,
+    .description {
         max-width: 20rem;
     }
 }
@@ -135,23 +159,38 @@ p {
         width: 25rem;
         height: auto;
         display: flex;
-        flex-direction: column; 
+        flex-direction: column;
     }
 
-    .image{
+    .left {
+        width: 22rem;
+        height: 20rem;
+    }
+
+    .image {
         width: 20rem;
         height: auto;
     }
-    .section{
+
+    .section {
         display: flex;
-        flex-direction: column; 
+        flex-direction: column;
         text-align: center;
 
     }
-    .middle, p, .description{
+
+    .right {
+        text-align: center;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .middle,
+    p,
+    .description {
         max-width: 15rem;
     }
-    
+
 }
 
 @media (max-width: 600px) {
@@ -159,24 +198,39 @@ p {
         width: 20rem;
         height: auto;
         display: flex;
-        flex-direction: column; 
+        flex-direction: column;
     }
-    .image{
+    .left {
+        width: 18rem;
+        height: 18rem;
+    }
+
+    .image {
         width: 16rem;
         height: auto;
     }
-    .section{
+
+    .section {
         display: flex;
-        flex-direction: column; 
+        flex-direction: column;
     }
-    .middle, p{
+
+    .right {
+        text-align: center;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .middle,
+    p {
         max-width: 15rem;
         max-height: 15rem;
-        .description{
+
+        .description {
             max-width: 15rem;
             overflow: hidden;
         }
-    } 
+    }
 }
 
 @media (max-width: 480px) {
@@ -184,17 +238,32 @@ p {
         width: 18rem;
         height: auto;
         display: flex;
-        flex-direction: column; 
+        flex-direction: column;
     }
-    .image{
+    .left {
+        width: 16rem;
+        height: 16rem;
+    }
+
+    .image {
         width: 16rem;
         height: auto;
     }
-    .section{
+
+    .section {
         display: flex;
-        flex-direction: column; 
+        flex-direction: column;
     }
-    .middle, p, .description{
+
+    .right {
+        text-align: center;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .middle,
+    p,
+    .description {
         max-width: 14rem;
         max-height: 12rem;
         overflow: hidden;
@@ -206,17 +275,33 @@ p {
         width: 13.5rem;
         height: auto;
         display: flex;
-        flex-direction: column; 
+        flex-direction: column;
     }
-    .image{
+    .left {
+        width: 12rem;
+        height: 12rem;
+    }
+
+
+    .image {
         width: 11rem;
         height: auto;
     }
-    .section{
+
+    .section {
         display: flex;
-        flex-direction: column; 
+        flex-direction: column;
     }
-    .middle, p, .description{
+
+    .right {
+        text-align: center;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .middle,
+    p,
+    .description {
         max-height: 10rem;
         overflow: hidden;
         max-width: 10rem;

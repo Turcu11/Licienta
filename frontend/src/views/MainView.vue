@@ -1,11 +1,9 @@
 <script setup>
 import {ref, onMounted, onUnmounted} from 'vue';
-
 import SideBar from '../components/SideBar.vue';
 import Posts from '../components/Posts.vue';
 
 let screenSize = ref(window.innerWidth);
-
 const updateScreenSize = () => {
     screenSize.value = window.innerWidth;
 };

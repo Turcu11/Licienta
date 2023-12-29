@@ -25,6 +25,7 @@ export const useUserRegisterData = defineStore('userRegisterData', {
                 this.error = null;
                 console.log(`User ${this.user.fullName} created successfully!`);
                 console.log(this.user);
+                alert(`User ${this.user.fullName} created successfully! \n Please login with you're new account to continue.`);
                 return true;
             } catch (error) {
                 console.error('Failed to create user:', error);
