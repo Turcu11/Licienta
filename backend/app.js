@@ -1,5 +1,6 @@
 import express from "express";
 import usersRouter from "./routes/user.routes.js";
+import postsRouter from "./routes/post.routes.js";
 
 const app = express();
 const port = 3000;
@@ -14,6 +15,7 @@ app.use((req, res, next) => {
 })
 
 app.use("/users", usersRouter);
+app.use("/posts", postsRouter);
 
 app.use((err, req, res, next) => {
     if (err instanceof SyntaxError && err.status === 400 && 'body' in err) {
