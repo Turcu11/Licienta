@@ -1,6 +1,4 @@
 <script setup>
-import { defineProps } from 'vue'
-
 defineProps({
     title: String,
     description: String,
@@ -200,6 +198,7 @@ defineProps({
         display: flex;
         flex-direction: column;
     }
+
     .left {
         width: 18rem;
         height: 18rem;
@@ -240,6 +239,7 @@ defineProps({
         display: flex;
         flex-direction: column;
     }
+
     .left {
         width: 16rem;
         height: 16rem;
@@ -277,6 +277,7 @@ defineProps({
         display: flex;
         flex-direction: column;
     }
+
     .left {
         width: 12rem;
         height: 12rem;
@@ -306,5 +307,4 @@ defineProps({
         overflow: hidden;
         max-width: 10rem;
     }
-}
-</style>
+}</style>

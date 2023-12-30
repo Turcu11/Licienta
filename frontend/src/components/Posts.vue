@@ -38,7 +38,7 @@ const getTimePassed = (createdAt) => {
         <div class="view-title">Found {{ results }} results</div>
         <div class="cards">
             <div class="post-cards-container">
-                <Router-Link :to="`/postsDetail/${post.id}`" v-for="(post, index) in postsData.posts" :key="index">
+                <Router-Link :to="`/postDetail/${post.id}`" v-for="(post, index) in postsData.posts" :key="index">
                     <PostCard   :title="post.title" 
                                 :image="post.image" 
                                 :description="post.description"
@@ -81,7 +81,7 @@ body {
     margin-top: 1.8rem;
     margin-left: 1.75rem;
     width: 80rem;
-    height: 50rem;
+    height: 45rem;
     border-radius: 1.25rem;
     padding-right: 10px;
     background-color: #343434;
@@ -165,7 +165,6 @@ body {
         margin-left: 0rem;
         width: 16rem;
     }
-
     .cards {
         margin-left: 1rem;
     }

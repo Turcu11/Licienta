@@ -11,9 +11,10 @@ export const usePostDetailsData = defineStore('postDetailsData', {
         async getPostById(id) {
             try {
                 const response = await axios.get(`http://127.0.0.1:3000/posts/${id}`);
-                this.posts = response.data;
+                this.post = response.data;
                 this.error = null;
-                console.log(this.posts);
+                console.log(this.post);
+                return this.post;
             }
             catch (error) {
                 console.error('Failed to get posts:', error);

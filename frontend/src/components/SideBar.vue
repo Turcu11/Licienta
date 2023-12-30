@@ -18,7 +18,7 @@
     align-items: center;
     margin-top: 1.8rem;
     width: 15rem;
-    height: 50rem;
+    height: 45rem;
     border-radius: 1.25rem;
     background: #343434;
 }

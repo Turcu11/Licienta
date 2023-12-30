@@ -3,28 +3,34 @@ import { RouterLink } from 'vue-router'
 import { useUserLoginData } from '../stores/userLoginData';
 const userData = useUserLoginData();
 
+
 const logout = () => {
     userData.user = undefined;
     localStorage.removeItem('user');
 }
+
 </script>
 
 <template>
     <div>
         <nav class="nav-bar">
-            <RouterLink :to="{name: 'landing'}">
-                <img @click="logout" class="nav-bar-logo" src="Logo white.png" alt="" srcset="">
+            <RouterLink :to="{ name: 'landing' }">
+                <img @click="logout" class="nav-bar-logo" src="/Logo white.png" alt="" srcset="">
             </RouterLink>
-            <div class="user-welcome" v-if="!userData.error && userData.user != undefined">Hello <b>{{ userData.user.fullName }}</b>
-                <RouterLink v-if="!userData.error && userData.user != undefined" :to="{name: 'mainView'}">
+
+            <div class="user-welcome" v-if="!userData.error && userData.user != undefined">Hello <b>{{
+                userData.user.fullName }}</b>
+                <RouterLink v-if="!userData.error && userData.user != undefined" :to="{ name: 'mainView' }">
                     <button class="logout-button-red" @click="logout">Logout</button>
                 </RouterLink>
             </div>
+
         </nav>
     </div>
 </template>
 
 <style lang="scss" scoped>
+
 .logout-button-red {
     width: 5rem;
     height: 2rem;
@@ -39,12 +45,14 @@ const logout = () => {
     font-weight: 600;
     line-height: normal;
 }
-.user-welcome{
+
+.user-welcome {
     color: white;
     font-size: .9rem;
     font-family: inter;
     margin-right: 4rem;
 }
+
 .nav-bar {
     display: flex;
     align-items: center;
@@ -58,5 +66,43 @@ const logout = () => {
     margin: 0 0 0 3.75rem;
     width: 9.1875rem;
     height: 2.625rem;
+}
+
+@media (max-width: 600px) {
+
+    .nav-bar-logo {
+        margin: 0 0 0 1.75rem;
+        width: 9.1875rem;
+        height: 2.625rem;
+    }
+
+    .user-welcome {
+        margin-right: 1rem;
+    }
+
+}
+
+@media (max-width: 480px) {
+
+    .nav-bar{
+        height: 6rem;
+    }
+    .nav-bar-logo {
+        margin: 0 0 0 1.75rem;
+        width: 9.1875rem;
+        height: 2.625rem;
+    }
+
+    .user-welcome {
+        display: flex;
+        flex-direction: column;
+        text-align: end;
+        margin-right: 1rem;
+    }
+    .logout-button-red{
+        margin-top: .5rem;
+        margin-left: 0rem;
+    }
+
 }
 </style>

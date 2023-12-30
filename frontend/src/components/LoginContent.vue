@@ -51,9 +51,7 @@ const getUserByEmail = async (email, password) => {
             </p>
         </div>
         <div class="login-button">
-            <!-- <RouterLink :to="{name: 'mainView'}"> -->
             <button class="login-button-red" @click="getUserByEmail(email, password)">Login</button>
-            <!-- </RouterLink> -->
         </div>
     </div>
 </template>
