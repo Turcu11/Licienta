@@ -43,6 +43,15 @@ const imgUrl = computed(() => {
             </div>
             <div class="middle">
                 <h1>{{ title }}</h1>
+                <div class="description-box">
+                    <p>{{ description }}</p>
+                </div>
+                <br />
+                Special requirements: {{ specialRequirements }} <br />
+                prefferedInterval: {{ prefferedInterval }} <br />
+                prefferedDays: {{ prefferedDays }} <br />
+                payCash: {{ payCash }} <br />
+                payCard: {{ payCard }} <br />
             </div>
             <div class="left">
 
@@ -52,6 +61,25 @@ const imgUrl = computed(() => {
 </template>
 
 <style lang="scss" scoped>
+.middle{
+    color: #FFF;
+    font-family: inter;
+    font-size: 1rem;
+    .description-box{
+        // background-color: red;
+        margin-top: 1rem;
+        width: 22rem;
+        height: 18rem;
+        border-radius: 1.25rem;
+        overflow: auto;
+        // background-color: #484848;
+        p{
+            font-size: 1rem;
+            line-height: 160%;
+        }
+    }
+}
+
 .img {
     margin-top: .8rem;
     margin-left: .8rem;
@@ -88,5 +116,24 @@ const imgUrl = computed(() => {
     border-radius: 1.25rem;
     padding-right: 10px;
     background-color: #484848;
-    // background-color: #484248;
-}</style>
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent; 
+}
+
+::-webkit-scrollbar-thumb {
+    background: #C12323; 
+    border-radius: 5px;
+}
+
+body {
+    scrollbar-face-color: #C12323;
+    scrollbar-track-color: transparent;
+}
+
+</style>

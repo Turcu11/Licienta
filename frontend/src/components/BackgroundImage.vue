@@ -1,10 +1,10 @@
 <script setup>
-
+import BGurl from '/BG.jpg'
 </script>
 
 <template>
     <div class="background-image">
-      <img src="BG.jpg" alt="" srcset="">
+      <img :src="BGurl" alt="">
     </div>
 </template>
 

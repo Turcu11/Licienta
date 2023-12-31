@@ -26,13 +26,9 @@ watchEffect(() => {
 
 <template>
   <div>
-    <div>  
       <BackgroundImage/>
-    </div>
     <header>
-      <!-- <div class="wrapper"> -->
         <NavBar />
-      <!-- </div> -->
       <RouterView />
     </header>
 

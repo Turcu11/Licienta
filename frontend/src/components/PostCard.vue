@@ -22,7 +22,10 @@ defineProps({
 
                 <div class="middle">
                     <h1 class="title">{{ title }}</h1>
-                    <p class="description">{{ description }}</p>
+                    <div class="description-box">
+                        <p class="description">{{ description }}</p>
+                    </div>
+                    <br>
                     <p>Categoty: {{ category }}</p>
                 </div>
 
@@ -37,6 +40,11 @@ defineProps({
 
 
 <style scoped lang="scss">
+.description-box {
+    max-width: 45rem;
+    max-height: 4rem;
+    overflow: hidden;
+}
 .section {
     display: flex;
     flex-direction: row;
@@ -45,7 +53,7 @@ defineProps({
 
 .left {
     width: 10rem;
-    height: 9rem;
+    height: 10rem;
     margin: .95rem;
     overflow: hidden;
     display: flex;
@@ -60,6 +68,13 @@ defineProps({
     border-radius: 1rem;
 }
 
+h1{
+    margin-bottom: 0.3rem;
+}
+
+p{
+    margin-top: 0.5rem;
+}
 .middle p {
     display: flex;
     flex-direction: column;
@@ -104,7 +119,7 @@ defineProps({
 
 .card {
     width: 71rem;
-    height: 11rem;
+    height: 12rem;
     background-color: #484848;
     border-radius: 1.25rem;
     margin-top: 1rem;

@@ -13,7 +13,7 @@ export const usePostDetailsData = defineStore('postDetailsData', {
                 const response = await axios.get(`http://127.0.0.1:3000/posts/${id}`);
                 this.post = response.data;
                 this.error = null;
-                console.log(this.post);
+                // console.log(this.post);
                 return this.post;
             }
             catch (error) {

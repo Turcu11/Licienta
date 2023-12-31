@@ -12,6 +12,7 @@ const isLoading = ref(true);
 
 const fetchPost = async () => {
     isLoading.value = true;
+    // console.log(postId.value)
     await currentPost.getPostById(postId.value);
     isLoading.value = false;
 };
@@ -21,6 +22,7 @@ watch(postId, fetchPost, { immediate: true });
 const goBack = () => {
     router.go(-1);
 };
+
 </script>
 
 <template>
@@ -32,7 +34,19 @@ const goBack = () => {
                 :id="currentPost.post.id" 
                 :title="currentPost.post.title" 
                 :description="currentPost.post.description"
+                :address="currentPost.post.address"
+                :category="currentPost.post.category"
+                :specialRequirements="currentPost.post.specialRequirments"
+                :prefferedInterval="currentPost.post.prefferedInterval"
+                :prefferedDays="currentPost.post.prefferedDays"
+                :payCash="currentPost.post.payCash"
+                :payCard="currentPost.post.payCard"
+                :price="currentPost.post.price"
+                :isNegotiable="currentPost.post.isNegotiable"
                 :image="currentPost.post.image"
+                :isDone="currentPost.post.isDone"
+                :userID="currentPost.post.userID"
+                :serviceProviderID="currentPost.post.serviceProviderID"
             />
         </div>
     </div>
