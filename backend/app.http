@@ -12,7 +12,7 @@ Content-Type: application/json
 ### From here we are talking about posts
 GET http://127.0.0.1:3000/posts/all
 ###
-GET http://127.0.0.1:3000/posts/29
+GET http://127.0.0.1:3000/posts/1
 ###
 GET http://127.0.0.1:3000/posts/category/Plumbing
 ###
