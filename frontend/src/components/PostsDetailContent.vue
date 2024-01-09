@@ -46,10 +46,10 @@ const imgUrl = computed(() => {
                 <div class="description-box">
                     <p>{{ description }}</p>
                 </div>
-                <br />
+                <hr>
                 Special requirements: {{ specialRequirements }} <br />
-                prefferedInterval: {{ prefferedInterval }} <br />
-                prefferedDays: {{ prefferedDays }} <br />
+                Avalible: {{ prefferedDays }} <br />
+                Hours: {{ prefferedInterval }} <br />
                 payCash: {{ payCash }} <br />
                 payCard: {{ payCard }} <br />
             </div>
