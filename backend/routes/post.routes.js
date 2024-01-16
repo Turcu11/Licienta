@@ -1,5 +1,5 @@
 import {Router} from "express";
-import {Posts} from "../db.js";
+import {Posts, Users} from "../db.js";
 const router = Router();
 
 router.get("/all", async (req, res) => { 
@@ -17,7 +17,13 @@ router.get("/all", async (req, res) => {
 
 router.get("/:id", async (req, res) => {
     try {
-        const post = await Posts.findByPk(req.params.id);
+        const post = await Posts.findByPk(req.params.id, {
+            include: [{
+                model: Users, //here is an inner join between posts and users to get the user's name and phone
+                attributes: ['fullName', 'phone'],
+                required: true
+            }]
+        });
         res.json(post);
     } catch (err) {
         res.status(500).json({ error: err.message });

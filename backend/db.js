@@ -77,31 +77,31 @@ export const Posts = sequelize.define(
             primaryKey: true,
         },
         title: {
-            type: DataTypes.STRING(20),
+            type: DataTypes.STRING(100),
             allowNull: false,
         },
         description: {
-            type: DataTypes.STRING(2000),
+            type: DataTypes.STRING(3000),
             allowNull: false,
         },
         address: {
-            type: DataTypes.STRING(50),
+            type: DataTypes.STRING(100),
             allowNull: false,
         },
         category: {
-            type: DataTypes.STRING(20),
+            type: DataTypes.STRING(60),
             allowNull: false,
         },
         specialRequirments: {
-            type: DataTypes.STRING(200),
+            type: DataTypes.STRING(500),
             allowNull: true,
         },
         preferredInterval: {
-            type: DataTypes.STRING(20),
+            type: DataTypes.STRING(150),
             allowNull: true,
         },
         preferredDays: {
-            type: DataTypes.STRING(20),
+            type: DataTypes.STRING(150),
             allowNull: true,
         },
         payCash: {
@@ -125,7 +125,7 @@ export const Posts = sequelize.define(
             allowNull: false,
         },
         image: {
-            type: DataTypes.STRING(200),
+            type: DataTypes.STRING(500),
             allowNull: true,
         },
         isDone: {
