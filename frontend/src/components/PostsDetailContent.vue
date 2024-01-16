@@ -66,13 +66,11 @@ const imgUrl = computed(() => {
     font-family: inter;
     font-size: 1rem;
     .description-box{
-        // background-color: red;
         margin-top: 1rem;
         width: 22rem;
         height: 18rem;
         border-radius: 1.25rem;
         overflow: auto;
-        // background-color: #484848;
         p{
             font-size: 1rem;
             line-height: 160%;
