@@ -3,6 +3,7 @@ GET http://127.0.0.1:3000/users/all
 GET http://127.0.0.1:3000/users/1
 ###
 GET http://127.0.0.1:3000/users/email/turcu.iosif@email.com
+
 ###
 POST http://127.0.0.1:3000/users
 Content-Type: application/json
