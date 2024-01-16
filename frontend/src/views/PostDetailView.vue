@@ -47,6 +47,8 @@ const goBack = () => {
                 :isDone="currentPost.post.isDone"
                 :userID="currentPost.post.userID"
                 :serviceProviderID="currentPost.post.serviceProviderID"
+                :createdAt="currentPost.post.createdAt"
+                :user="currentPost.post.User"
             />
         </div>
     </div>

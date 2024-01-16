@@ -22,7 +22,10 @@ const router = createRouter({
     {
       path: '/mainView',
       name: 'mainView',
-      component: () => import('../views/MainView.vue')
+      component: () => import('../views/MainView.vue'),
+      meta: {
+        requiresAuth: false 
+      }
     },
     {
       path: '/postDetail/:id',

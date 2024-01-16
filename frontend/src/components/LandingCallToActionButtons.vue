@@ -4,12 +4,12 @@ import { RouterLink } from 'vue-router';
 
 <template>
     <div class="landing-buttons">
-        <Router-Link to="login">
-            <button class="landing-button-red">Log In</button>
-        </Router-Link>
-        <Router-Link to="register">
-            <button class="landing-button-outline">Register</button>
-        </Router-Link>
+        <RouterLink :to=" { name: 'mainView' } ">
+            <button class="landing-button-red">Let's go</button>
+        </RouterLink>
+        <RouterLink :to=" {name: 'login' } ">
+            <button class="landing-button-outline">Log In</button>
+        </RouterLink>
     </div>
 </template>
 
@@ -103,4 +103,5 @@ import { RouterLink } from 'vue-router';
         margin-top: 2rem;
         margin-left: 0px;
     }
-}</style>
+}
+</style>

@@ -2,7 +2,7 @@
 import { ref } from 'vue';
 import { RouterLink, useRouter } from 'vue-router';
 import { useUserLoginData } from '../stores/userLoginData';
-import bcrypt from 'bcryptjs';
+// import bcrypt from 'bcryptjs';
 
 const router = useRouter();
 const email = ref('');

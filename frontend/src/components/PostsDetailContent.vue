@@ -21,7 +21,28 @@ const props = defineProps({
     createdAt: String,
     updatedAt: String,
     deletedAt: String,
+    user: Object,
 })
+
+const getTimePassed = (createdAt) => {
+    const now = new Date();
+    const postDate = new Date(createdAt);
+    const diffInMilliseconds = now - postDate;
+    const diffInSeconds = Math.floor(diffInMilliseconds / 1000);
+    const diffInMinutes = Math.floor(diffInSeconds / 60);
+    const diffInHours = Math.floor(diffInMinutes / 60);
+    const diffInDays = Math.floor(diffInHours / 24);
+
+    if (diffInDays > 0) {
+        return `${diffInDays} day(s) ago`;
+    } else if (diffInHours > 0) {
+        return `${diffInHours} hour(s) ago`;
+    } else if (diffInMinutes > 0) {
+        return `${diffInMinutes} minute(s) ago`;
+    } else {
+        return `${diffInSeconds} second(s) ago`;
+    }
+};
 
 const imgUrl = computed(() => {
     if (props.image && props.image !== 'null' && props.image !== 'undefined') {
@@ -54,24 +75,82 @@ const imgUrl = computed(() => {
                 payCard: {{ payCard }} <br />
             </div>
             <div class="left">
-
+                <div class="left-container">
+                    <h3 class="posted-by">Posted by:</h3>
+                    <h1 class="user-name">{{ user.fullName }}</h1>
+                    <h1 class="user-phone">&#9742; {{ user.phone }}</h1>
+                    <h5 class="for-address">Address:</h5>
+                    <h5 class="address">{{ address  }}</h5>
+                    <span class="created-at"> &#x1F55F; {{ getTimePassed(createdAt) }}</span>
+                </div>
             </div>
         </div>
     </div>
 </template>
 
 <style lang="scss" scoped>
-.middle{
+.created-at {
+    color: hsla(0, 0%, 100%, 0.75);
+    font-family: inter;
+    font-size: 1rem;
+    margin-top: 10px;
+}
+.address{
+    color: #FFF;
+    font-family: inter;
+    margin-top: 10px;
+    font-size: 1rem;
+}
+.for-address{
+    color: hsla(0, 0%, 100%, 0.75);
+    font-family: inter;
+    margin-bottom: 0px;
+    font-size: .9rem;
+}
+.left {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.left-container{
+    background-color: #343434;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 2rem;
+    width: 90%; 
+    height: 70%;
+}
+.posted-by{
+    color: hsla(0, 0%, 100%, 0.75);
+    font-family: inter;
+    margin-bottom: 0px;
+    font-size: .9rem;
+}
+.user-name{
+    color: #FFF;
+    font-family: inter;
+    font-size: 1.5rem;
+}
+.user-phone{
+    color: hsla(0, 0%, 100%, 0.75);
+    font-family: inter;
+    font-size: 1rem;
+}
+.middle {
     color: #FFF;
     font-family: inter;
     font-size: 1rem;
-    .description-box{
+
+    .description-box {
         margin-top: 1rem;
         width: 22rem;
         height: 18rem;
         border-radius: 1.25rem;
         overflow: auto;
-        p{
+
+        p {
             font-size: 1rem;
             line-height: 160%;
         }
@@ -121,11 +200,11 @@ const imgUrl = computed(() => {
 }
 
 ::-webkit-scrollbar-track {
-    background: transparent; 
+    background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-    background: #C12323; 
+    background: #C12323;
     border-radius: 5px;
 }
 
@@ -133,5 +212,4 @@ body {
     scrollbar-face-color: #C12323;
     scrollbar-track-color: transparent;
 }
-
 </style>
