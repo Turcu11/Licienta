@@ -33,6 +33,7 @@ const goBack = () => {
 }
 
 .go-back{
+    margin-bottom: 0px;
     margin-left: 3rem;
     margin-top: 3rem;
     color: #FFF;
