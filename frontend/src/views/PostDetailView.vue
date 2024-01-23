@@ -71,5 +71,8 @@ const goBack = () => {
     color: #FFF;
     font-family: inter;
     cursor: pointer;
+    &:hover {
+        color: #d3d3d3;
+    }
 }
 </style>

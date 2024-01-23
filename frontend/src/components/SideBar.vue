@@ -1,11 +1,14 @@
 <script setup>
-    import Filters from './Filters.vue';
+import { RouterLink } from 'vue-router';
+import Filters from './Filters.vue';
 </script>
 
 <template>
     <div class="sidebar-wraper">
-        <button class="create-post-button">Create a post</button>
-        <Filters/>
+        <RouterLink :to="{name: 'createPost'}">
+            <button class="create-post-button">Create a post</button>
+        </RouterLink>
+        <Filters />
     </div>
 </template>
 
@@ -33,9 +36,14 @@
     color: #FFF;
     font-family: inter;
     text-align: center;
-    font-size: 0.9rem;
+    font-size: 1rem;
     font-style: normal;
-    font-weight: 400;
+    font-weight: 500;
     line-height: normal;
+
+    &:hover {
+        /* background: #636363; */
+        border: 2px solid #C12323;
+    }
 }
 </style>

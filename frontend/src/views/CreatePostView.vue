@@ -1,0 +1,45 @@
+<script setup>
+import { RouterLink, useRoute, useRouter } from 'vue-router';
+import CreatePostForm from '../components/CreatePostForm.vue';
+
+const router = useRouter();
+const goBack = () => {
+    router.go(-1);
+};
+
+</script>
+
+<template>
+
+    <div class="wrapper">
+        <h1 @click="goBack" class="go-back" > &#x2039 Go back </h1>
+        <div class="create-post-form">
+            <CreatePostForm />
+        </div>
+    </div>
+
+</template>
+
+<style lang="scss" scoped>
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    margin-top: 1.8rem;
+    width: 80rem;
+    height: 45rem;
+    border-radius: 1.25rem;
+    background-color: #343434;
+}
+
+.go-back{
+    margin-left: 3rem;
+    margin-top: 3rem;
+    color: #FFF;
+    font-family: inter;
+    cursor: pointer;
+    &:hover {
+        color: #d3d3d3;
+    }
+}
+</style>

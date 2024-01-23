@@ -1,5 +1,6 @@
 <script setup>
 import { computed } from 'vue';
+import PaymentMethod from './PaymentMethod.vue';
 
 const props = defineProps({
     id: Number,
@@ -71,8 +72,10 @@ const imgUrl = computed(() => {
                 Special requirements: {{ specialRequirements }} <br />
                 Avalible: {{ prefferedDays }} <br />
                 Hours: {{ prefferedInterval }} <br />
-                payCash: {{ payCash }} <br />
-                payCard: {{ payCard }} <br />
+                <div class="payment-methods">
+                    <PaymentMethod text="Card" :isTrue="payCard" />
+                    <PaymentMethod text="Cash" :isTrue="payCash"/>
+                </div>
             </div>
             <div class="left">
                 <div class="left-container">
@@ -80,7 +83,7 @@ const imgUrl = computed(() => {
                     <h1 class="user-name">{{ user.fullName }}</h1>
                     <h1 class="user-phone">&#9742; {{ user.phone }}</h1>
                     <h5 class="for-address">Address:</h5>
-                    <h5 class="address">{{ address  }}</h5>
+                    <h5 class="address">{{ address }}</h5>
                     <span class="created-at"> &#x1F55F; {{ getTimePassed(createdAt) }}</span>
                 </div>
             </div>
@@ -95,49 +98,57 @@ const imgUrl = computed(() => {
     font-size: 1rem;
     margin-top: 10px;
 }
-.address{
+
+.address {
     color: #FFF;
     font-family: inter;
     margin-top: 10px;
     font-size: 1rem;
 }
-.for-address{
+
+.for-address {
     color: hsla(0, 0%, 100%, 0.75);
     font-family: inter;
     margin-bottom: 0px;
     font-size: .9rem;
 }
+
 .left {
     display: flex;
     align-items: center;
     justify-content: center;
 }
-.left-container{
+
+.left-container {
     background-color: #343434;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     border-radius: 2rem;
-    width: 90%; 
+    width: 90%;
     height: 70%;
 }
-.posted-by{
+
+.posted-by {
     color: hsla(0, 0%, 100%, 0.75);
     font-family: inter;
     margin-bottom: 0px;
     font-size: .9rem;
 }
-.user-name{
+
+.user-name {
     color: #FFF;
     font-family: inter;
     font-size: 1.5rem;
 }
-.user-phone{
+
+.user-phone {
     color: hsla(0, 0%, 100%, 0.75);
     font-family: inter;
     font-size: 1rem;
 }
+
 .middle {
     color: #FFF;
     font-family: inter;
@@ -145,8 +156,9 @@ const imgUrl = computed(() => {
 
     .description-box {
         margin-top: 1rem;
+        padding-right: .5rem;
         width: 22rem;
-        height: 18rem;
+        max-height: 18rem;
         border-radius: 1.25rem;
         overflow: auto;
 
@@ -155,6 +167,14 @@ const imgUrl = computed(() => {
             line-height: 160%;
         }
     }
+}
+
+.middle .payment-methods{
+    display: flex;
+    justify-content: space-around;
+    width: 22rem;
+    margin-top: 1rem;
+
 }
 
 .img {
@@ -211,5 +231,4 @@ const imgUrl = computed(() => {
 body {
     scrollbar-face-color: #C12323;
     scrollbar-track-color: transparent;
-}
-</style>
+}</style>

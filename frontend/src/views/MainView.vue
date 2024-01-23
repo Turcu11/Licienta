@@ -26,7 +26,6 @@ onUnmounted(() => {
     </div>
 </template>
 
-
 <style lang="scss" scoped>
 .wraper{
     display: flex;
