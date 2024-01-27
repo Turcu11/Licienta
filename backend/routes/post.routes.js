@@ -43,7 +43,7 @@ router.get("/category/:category", async (req, res) => {
     }
 });
 
-router.post("/", async (req, res) => {
+router.post("/create", async (req, res) => {
     try {
         console.log(req.body);
         const post = await Posts.create(req.body);

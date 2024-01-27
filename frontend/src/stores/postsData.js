@@ -43,6 +43,18 @@ export const usePostsData = defineStore('postsData', {
                 console.error('Failed to get posts:', error);
                 this.error = 'Failed to get posts.';
             }
+        },
+        async createPost(post) {
+            try {
+                const response = await axios.post('http://127.0.1:3000/posts/create', post);
+                this.posts = response.data;
+                this.error = null;
+                console.log(this.posts);
+            }
+            catch (error) {
+                console.error('Failed to create post:', error);
+                this.error = 'Failed to create post.';
+            }
         }
     }
 });

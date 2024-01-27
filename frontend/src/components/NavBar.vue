@@ -1,8 +1,15 @@
 <script setup>
 import { RouterLink } from 'vue-router'
 import { useUserLoginData } from '../stores/userLoginData';
+import { onMounted } from 'vue';
 const userData = useUserLoginData();
 
+onMounted(() => {
+    const storedUser = localStorage.getItem('user');
+    if (storedUser) {
+        userData.user = JSON.parse(storedUser);
+    }
+});
 
 const logout = () => {
     userData.user = undefined;
@@ -18,8 +25,8 @@ const logout = () => {
                 <img @click="logout" class="nav-bar-logo" src="/Logo white.png" alt="" srcset="">
             </RouterLink>
 
-            <div class="user-welcome" v-if="!userData.error && userData.user != undefined">Hello <b>{{
-                userData.user.fullName }}</b>
+            <div class="user-welcome" v-if="!userData.error && userData.user != undefined">Hello <b>
+                {{userData.user.fullName }}</b>
                 <RouterLink v-if="!userData.error && userData.user != undefined" :to="{ name: 'mainView' }">
                     <button class="logout-button-red" @click="logout">Logout</button>
                 </RouterLink>

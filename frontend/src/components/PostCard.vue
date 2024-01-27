@@ -1,4 +1,5 @@
 <script setup>
+import { defineProps, watch } from 'vue';
 defineProps({
     title: String,
     description: String,
