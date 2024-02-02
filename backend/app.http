@@ -20,4 +20,4 @@ GET http://127.0.0.1:3000/posts/category/Plumbing
 POST http://127.0.0.1:3000/posts/create
 Content-Type: application/json
 
-{"title": "Plumbing","description": "I need a plumber","address": "Vasile GOldis","category": "Plumbing","userId": 1, "price": 100, "isNegotiable": true, "isDone": false, "userID": 3 }
+{"title": "Plumbing","description": "I need a plumber", "address": "Vasile GOldis","category": "Plumbing", "price": 100, "isNegotiable": true, "isDone": false, "userID": 3 }
