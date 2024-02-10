@@ -35,7 +35,15 @@ const router = createRouter({
     {
       path: '/createPost',
       name: 'createPost',
-      component: () => import('../views/CreatePostView.vue')
+      component: () => import('../views/CreatePostView.vue'),
+      beforeEnter: (to, from, next) => {
+        if (!localStorage.getItem('user')) {
+            next({ name: 'login' }); // Redirect to the "Login" page
+            alert('Please login to create a post');
+        } else {
+            next(); // Continue to the "Create Post" page
+        }
+    },
     }
   ]
 })

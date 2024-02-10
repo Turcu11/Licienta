@@ -1,8 +1,8 @@
 <script setup>
-import { ref, watch } from 'vue'
+import { ref, watch, computed } from 'vue'
 import { usePostsData } from '../stores/postsData.js'
 import { storage } from '../../utils/dbFirebase.js'
-import { ref as  firebaseRef, uploadBytesResumable, getDownloadURL, listAll } from "@firebase/storage"
+import { ref as firebaseRef, uploadBytesResumable, getDownloadURL, listAll } from "@firebase/storage"
 import PostCard from './PostCard.vue'
 
 const postsData = usePostsData();
@@ -10,9 +10,9 @@ const currentUser = JSON.parse(localStorage.getItem('user'));
 const imgUrl = ref('');
 const tempImg = ref('');
 
-const title = ref('Title');
-const description = ref('Description');
-const address = ref('Address');
+const title = ref('*Title');
+const description = ref('*Description');
+const address = ref('*Address');
 const category = ref('');
 const specialRequirements = ref('');
 const prefferedInterval = ref('');
@@ -20,7 +20,7 @@ const prefferedDay = ref('');
 const payCard = ref(false);
 const payCash = ref(false);
 const offer = ref(0);
-const isNegotiable = ref(Boolean);
+const isNegotiable = ref(false);
 const images = ref('');
 
 const onFileChange = (e) => {
@@ -32,7 +32,7 @@ const onFileChange = (e) => {
         tempImg.value = reader.result;
     };
 
-    if(file){
+    if (file) {
         reader.readAsDataURL(file);
         uploadImage(file);
     }
@@ -46,7 +46,7 @@ watch(offer, (value) => {
 
 const uploadImage = (img) => {
     const file = img;
-    const uploadTask = uploadBytesResumable(firebaseRef(storage, "images/"+file.name), file);
+    const uploadTask = uploadBytesResumable(firebaseRef(storage, "images/" + file.name), file);
 
     uploadTask.on('state_changed',
         (snapshot) => {
@@ -61,26 +61,30 @@ const uploadImage = (img) => {
             getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
                 images.value = downloadURL;
                 imgUrl.value = downloadURL;
+                console.log('File available at', downloadURL);
             });
         }
     );
 };
 
 const createPost = () => {
-    if( title.value == '' || 
-        description.value == '' || 
-        address.value == '' || 
-        category.value == '' || 
-        offer.value <= 0 || 
-        images.value == '')
-        {
-            if(payCard.value == false && payCash.value == false){
-                alert('Please select a payment method!');
-                return;
-            }
+    if (title.value == '' ||
+        description.value == '' ||
+        address.value == '' ||
+        category.value == '' ||
+        offer.value <= 0 ||
+        payCard.value == false &&
+        payCash.value == false ||
+        images.value == '' ||
+        imgUrl.value == '') {
+        if (payCard.value == false && payCash.value == false) {
+            alert('Please select a payment method!');
+            return;
+        }
         alert('Please fill all fields!');
         return;
     }
+
     const post = {
         title: title.value,
         description: description.value,
@@ -92,22 +96,22 @@ const createPost = () => {
         payCash: payCard.value,
         payCard: payCash.value,
         price: offer.value,
-        isNegotiable: isNegotiable.value,
+        isNegotiable: isNegotiable.value ? true : false,
         image: imgUrl.value,
         isDone: false,
-        userID: currentUser.id,
+        userID: currentUser ? currentUser.id : 1,
         postedBy: currentUser.fullName,
         serviceProviderID: 0,
-        postedAt: new Date().toLocaleString(),
-    };
-    if(imgUrl.value){
+    }
+
+    if (imgUrl.value) {
         uploadImage(imgUrl.value)
     }
 
-    postsData.posts.push(post);
     postsData.createPost(post);
-    // localStorage.setItem('posts', JSON.stringify(postsData.posts));
 };
+
+const imageLoaded = computed(() => imgUrl.value !== null || imgUrl.value !== undefined || imgUrl.value !== '');
 
 </script>
 
@@ -116,17 +120,18 @@ const createPost = () => {
         <div class="column-top">
             <div class="row">
                 <div class="column">
-                    <input type="text" v-model="title" placeholder="Title" />
+                    <input type="text" class="title" v-model="title" placeholder="Title" />
                     <textarea class="description" v-model="description" placeholder="Description"></textarea>
-                    <input type="text" v-model="address" placeholder="Address" />
+                    <input type="text" class="address" v-model="address" placeholder="Address" />
                     <select v-model="category" class="select-input">
-                        <option value="" disabled selected>Select category</option>
+                        <option value="" disabled selected>*Select category</option>
                         <option value="Electrical">Electrical</option>
                         <option value="Pluming">Pluming</option>
                         <option value="Doors">Doors</option>
                         <option value="Heating">Heating</option>
                         <option value="Garden">Garden</option>
                         <option value="Furniture">Furniture</option>
+                        <option value="Other">Other</option>
                     </select>
                 </div>
                 <div class="column">
@@ -151,15 +156,26 @@ const createPost = () => {
                         <option value="Sunday">Sunday</option>
                         <option value="Week days">Week days (Mo-Fr)</option>
                     </select>
-                    <input type="checkbox" v-model="payCard" /> Pay Card
-                    <input type="checkbox" v-model="payCash" /> Pay Cash
-                    <input type="number" v-model="offer" placeholder="Offer" min="1" class="number-input" />
-                    Open to negotiation
-                    <input type="checkbox" v-model="isNegotiable" />
+                    <div class="row-for-payment">
+                        <span class="payment-text">Pay Card</span>
+                        <input type="checkbox" v-model="payCard" />
+                    </div>
+                    <div class="row-for-payment">
+                        <span class="payment-text">Pay Cash</span>
+                        <input type="checkbox" v-model="payCash" />
+                    </div>
+                    <div class="offer-container">
+                        <span>Offer €</span>
+                        <input type="number" v-model="offer" placeholder="Offer" min="1" class="number-input" />
+                    </div>
+                    <div class="row-for-payment">
+                        <span class="payment-text">Open to negotiation</span>
+                        <input type="checkbox" v-model="isNegotiable" />
+                    </div>
                 </div>
                 <div class="column">
                     <div class="image-upload">
-                        <input type="file" id="file" @change="onFileChange" style="display: none" >
+                        <input type="file" id="file" @change="onFileChange" style="display: none">
                         <label for="file" class="custom-file-upload">Upload an Image</label>
                     </div>
                     <button class="create-post-button" @click="createPost">Create Post</button>
@@ -181,7 +197,19 @@ const createPost = () => {
     margin: 0;
 }
 
-.create-post-button{
+.title{
+    width: 18rem;
+    height: 1.5rem;
+    margin-bottom: 1rem;
+}
+.address{
+    width: 18rem;
+    height: 1.5rem;
+    margin-bottom: 1rem;
+
+}
+
+.create-post-button {
     width: 10rem;
     height: 2rem;
     background-color: #C12323;
@@ -193,7 +221,6 @@ const createPost = () => {
     font-style: normal;
     font-weight: 600;
     line-height: normal;
-
 }
 
 .select-input {
@@ -247,7 +274,7 @@ const createPost = () => {
 }
 
 .description {
-    height: 8rem;
+    height: 9rem;
     margin-bottom: 1rem;
 }
 
@@ -272,16 +299,16 @@ const createPost = () => {
         resize: none;
     }
 
-    input {
-        background-color: #484848;
-        border-radius: 0.5rem;
-        border: none;
-        margin-bottom: 1rem;
-        padding: 0.5rem;
-        width: 18rem;
-        text-align: center;
-        overflow-wrap: break-word;
-    }
+    input:not([type="checkbox"]) {
+    background-color: #484848;
+    border-radius: 0.5rem;
+    border: none;
+    margin-bottom: 1rem;
+    padding: 0.5rem;
+    width: 18rem;
+    text-align: center;
+    overflow-wrap: break-word;
+}
 }
 
 .create-post-container {
@@ -299,6 +326,35 @@ const createPost = () => {
     display: flex;
     flex-direction: row;
     /* justify-content: space-between; */
+}
+
+.row-for-payment {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 1rem;
+
+    .payment-text {
+        font-family: inter;
+        font-size: .9rem;
+        margin-right: 1rem;
+    }
+}
+
+.offer-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 1rem;
+
+    span {
+        font-family: inter;
+        margin-right: 1rem;
+        margin-bottom: 1rem;
+    }
+
 }
 
 .column {

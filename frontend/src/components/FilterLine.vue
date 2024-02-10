@@ -56,19 +56,16 @@ const props = defineProps({
 }
 
 
-/* When the checkbox is checked, add a blue background */
 .container input:checked~.checkmark {
     background-color: #C12323;
 }
 
-/* Create the checkmark/indicator (hidden when not checked) */
 .checkmark:after {
     content: "";
     position: absolute;
     display: none;
 }
 
-/* Show the checkmark when checked */
 .container input:checked~.checkmark:after {
     display: block;
 }

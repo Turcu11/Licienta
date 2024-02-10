@@ -46,9 +46,11 @@ const getTimePassed = (createdAt) => {
 };
 
 const imgUrl = computed(() => {
-    if (props.image && props.image !== 'null' && props.image !== 'undefined') {
-        return "http://localhost:5173/" + props.image;
-    } else {
+    if (props.image && props.image !== 'null' && props.image !== 'undefined' && props.image !== 'http://localhost:5173/placeholder.jpg' && props.image !== '' && props.image !== ' ') {
+        return props.image; 
+    } else if(props.image.includes('.jpg') || props.image.includes('.png')) {
+        return props.image;
+    }else {
         return "http://localhost:5173/placeholder.jpg";
     }
 });
@@ -69,9 +71,9 @@ const imgUrl = computed(() => {
                     <p>{{ description }}</p>
                 </div>
                 <hr>
-                Special requirements: {{ specialRequirements }} <br />
-                Avalible: {{ prefferedDays }} <br />
-                Hours: {{ prefferedInterval }} <br />
+                Special requirements: <b>{{ specialRequirements }} </b> <br />
+                Avalible: <b>{{ prefferedDays }}</b> <br />
+                Hours: <b>{{ prefferedInterval }} </b> <br />
                 <div class="payment-methods">
                     <PaymentMethod text="Card" :isTrue="payCard" />
                     <PaymentMethod text="Cash" :isTrue="payCash"/>
@@ -125,6 +127,8 @@ const imgUrl = computed(() => {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    text-align: center;
+    padding: 10%;
     border-radius: 2rem;
     width: 90%;
     height: 70%;
