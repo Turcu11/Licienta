@@ -3,7 +3,7 @@ import { ref, watch, computed } from 'vue'
 import { usePostsData } from '../stores/postsData.js'
 import { storage } from '../../utils/dbFirebase.js'
 import { ref as firebaseRef, uploadBytesResumable, getDownloadURL, listAll } from "@firebase/storage"
-import PostCard from './PostCard.vue'
+import PostCardPreview from './PostCardPreview.vue'
 
 const postsData = usePostsData();
 const currentUser = JSON.parse(localStorage.getItem('user'));
@@ -181,8 +181,8 @@ const imageLoaded = computed(() => imgUrl.value !== null || imgUrl.value !== und
                     <button class="create-post-button" @click="createPost">Create Post</button>
                 </div>
             </div>
-            <div class="row">
-                <PostCard :title="title" :description="description" :image="images" :priceOffer="offer"
+            <div class="row-preview">
+                <PostCardPreview :title="title" :description="description" :image="images" :priceOffer="offer"
                     :postedAt="'Just now'" :category="category" />
                 <img :src="{ imgUrl }" alt="" srcset="">
             </div>
@@ -197,12 +197,13 @@ const imageLoaded = computed(() => imgUrl.value !== null || imgUrl.value !== und
     margin: 0;
 }
 
-.title{
+.title {
     width: 18rem;
     height: 1.5rem;
     margin-bottom: 1rem;
 }
-.address{
+
+.address {
     width: 18rem;
     height: 1.5rem;
     margin-bottom: 1rem;
@@ -300,15 +301,15 @@ const imageLoaded = computed(() => imgUrl.value !== null || imgUrl.value !== und
     }
 
     input:not([type="checkbox"]) {
-    background-color: #484848;
-    border-radius: 0.5rem;
-    border: none;
-    margin-bottom: 1rem;
-    padding: 0.5rem;
-    width: 18rem;
-    text-align: center;
-    overflow-wrap: break-word;
-}
+        background-color: #484848;
+        border-radius: 0.5rem;
+        border: none;
+        margin-bottom: 1rem;
+        padding: 0.5rem;
+        width: 18rem;
+        text-align: center;
+        overflow-wrap: break-word;
+    }
 }
 
 .create-post-container {
@@ -316,7 +317,6 @@ const imageLoaded = computed(() => imgUrl.value !== null || imgUrl.value !== und
     flex-direction: column;
     align-items: center;
     margin-top: 1.8rem;
-    width: 80rem;
     border-radius: 1.25rem;
     background: #343434;
 
@@ -325,6 +325,13 @@ const imageLoaded = computed(() => imgUrl.value !== null || imgUrl.value !== und
 .row {
     display: flex;
     flex-direction: row;
+    /* justify-content: space-between; */
+}
+.row-preview {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
     /* justify-content: space-between; */
 }
 
@@ -342,7 +349,7 @@ const imageLoaded = computed(() => imgUrl.value !== null || imgUrl.value !== und
     }
 }
 
-.offer-container{
+.offer-container {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -370,5 +377,59 @@ const imageLoaded = computed(() => imgUrl.value !== null || imgUrl.value !== und
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+}
+
+@media (max-width: 1350px) {
+    .title {
+        width: 13rem;
+    }
+    .address {
+        width: 13rem;
+    }
+    .image-upload {
+        width: 13rem;
+    }
+    textarea {
+        width: 13rem;
+    }
+    input:not([type="checkbox"]) {
+        width: 13rem;
+    }
+}
+
+@media (max-width: 1000px) {
+    .title {
+        width: 10rem;
+    }
+    .address {
+        width: 10rem;
+    }
+    .image-upload {
+        width: 10rem;
+    }
+    textarea {
+        width: 10rem;
+    }
+    input:not([type="checkbox"]) {
+        width: 10rem;
+    }
+}
+
+@media (max-width: 850px) {
+    .title {
+        width: 8rem;
+    }
+    .address {
+        width: 8rem;
+    }
+    .image-upload {
+        width: 8rem;
+    }
+    textarea {
+        width: 8rem;
+    }
+    input:not([type="checkbox"]) {
+        width: 8rem;
+    }
 }
 </style>

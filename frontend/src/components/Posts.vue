@@ -1,7 +1,8 @@
 <script setup>
-import { ref, onMounted } from 'vue';
 import PostCard from './PostCard.vue';
 import { usePostsData } from '../stores/postsData';
+import { ref, onMounted, onUnmounted } from 'vue';
+
 let results = ref(null);
 
 const postsData = usePostsData();
@@ -31,21 +32,36 @@ const getTimePassed = (createdAt) => {
     }
 };
 
+
+let screenSize = ref(window.innerWidth);
+const updateScreenSize = () => {
+    screenSize.value = window.innerWidth;
+};
+
+onMounted(() => {
+    window.addEventListener('resize', updateScreenSize);
+});
+
+onUnmounted(() => {
+    window.removeEventListener('resize', updateScreenSize);
+});
+
 </script>
 
 <template>
     <div class="wrapper">
-        <div class="view-title">Found {{ results }} results</div>
+        <div class="view-title">
+            <span v-if="screenSize < 1000">
+                <button>ShowFilter</button>
+            </span>
+            Found {{ results }} results
+        </div>
         <div class="cards">
             <div class="post-cards-container">
                 <Router-Link :to="`/postDetail/${post.id}`" v-for="(post, index) in postsData.posts" :key="index">
-                    <PostCard   :title="post.title" 
-                                :image="post.image" 
-                                :description="post.description"
-                                :posted-by="post.postedBy" 
-                                :category="post.category"
-                                :price-offer="post.price" 
-                                :posted-at="getTimePassed(post.createdAt)" />
+                    <PostCard :title="post.title" :image="post.image" :description="post.description"
+                        :posted-by="post.postedBy" :category="post.category" :price-offer="post.price"
+                        :posted-at="getTimePassed(post.createdAt)" />
                 </Router-Link>
             </div>
         </div>
@@ -62,11 +78,11 @@ a {
 }
 
 ::-webkit-scrollbar-track {
-    background: transparent; 
+    background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-    background: #C12323; 
+    background: #C12323;
     border-radius: 5px;
 }
 
@@ -165,6 +181,7 @@ body {
         margin-left: 0rem;
         width: 16rem;
     }
+
     .cards {
         margin-left: 1rem;
     }
