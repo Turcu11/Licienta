@@ -1,7 +1,13 @@
 <script setup>
 import PostCard from './PostCard.vue';
+import SideBar from './SideBar.vue';
 import { usePostsData } from '../stores/postsData';
-import { ref, onMounted, onUnmounted } from 'vue';
+import { ref, onMounted, onUnmounted, defineProps } from 'vue';
+import Menu from "../assets/icons/menu.svg";
+
+const props = defineProps({
+    filters: Object,
+})
 
 let results = ref(null);
 
@@ -32,6 +38,11 @@ const getTimePassed = (createdAt) => {
     }
 };
 
+let showFilter = ref(false);
+
+const filterToggle = () => {
+    showFilter.value = !showFilter.value;
+};
 
 let screenSize = ref(window.innerWidth);
 const updateScreenSize = () => {
@@ -45,16 +56,22 @@ onMounted(() => {
 onUnmounted(() => {
     window.removeEventListener('resize', updateScreenSize);
 });
-
 </script>
 
 <template>
     <div class="wrapper">
         <div class="view-title">
-            <span v-if="screenSize < 1000">
-                <button>ShowFilter</button>
+            <span v-if="screenSize < 1000" @click="filterToggle">
+                <button class="filter-button">
+                    <img :src="Menu" alt="menu" />
+                </button>
             </span>
             Found {{ results }} results
+        </div>
+        <div v-if="showFilter && screenSize < 1000" class="filters" @click="filterToggle">
+            <div class="filters-content" @click.stop>
+                <SideBar/>
+            </div>
         </div>
         <div class="cards">
             <div class="post-cards-container">
@@ -118,6 +135,7 @@ body {
 }
 
 .view-title {
+    display: flex;
     color: #FFF;
     font-family: Inter;
     font-size: 1.75rem;
@@ -126,6 +144,45 @@ body {
     line-height: normal;
     margin-top: 3rem;
     margin-left: 4rem;
+}
+
+.filter-button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+
+    img {
+        margin-right: 1rem;
+        width: 2rem;
+        height: 2rem;
+
+        &:hover {
+            scale: 1.1;
+        }
+    }
+}
+
+.filters {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+}
+.filters-content {
+    height: 85%;
+    /* width: 20rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 1rem;
+    background-color: #343434; */
 }
 
 @media (max-width: 1600px) {
@@ -172,6 +229,10 @@ body {
     }
 
     .cards {
+        margin-left: 1rem;
+    }
+
+    .view-title {
         margin-left: 1rem;
     }
 }

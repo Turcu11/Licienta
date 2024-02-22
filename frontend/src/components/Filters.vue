@@ -1,5 +1,21 @@
 <script setup>
 import FilterLine from './FilterLine.vue';
+import { ref, defineEmits } from 'vue';
+
+const activeFilters = ref({
+    Electrical: false,
+    Pluming: false,
+    Doors: false,
+    Heating: false,
+    Garden: false,
+    Furniture: false,
+});
+
+const applyFilters = () => {
+    console.log(activeFilters.value);
+    emit('applyFilters', activeFilters.value);
+}
+const emit = defineEmits(['applyFilters']);
 </script>
     
 <template>
@@ -7,13 +23,14 @@ import FilterLine from './FilterLine.vue';
         <h1 class="filter-title">Filters</h1>
         <hr class="title-under-line">
         <div class="filters">
-            <FilterLine filterName="Electrical"/>
-            <FilterLine filterName="Pluming"/>
-            <FilterLine filterName="Doors"/>
-            <FilterLine filterName="Heating"/>
-            <FilterLine filterName="Garden"/>
-            <FilterLine filterName="Furniture"/>
+            <FilterLine filterName="Electrical" v-model="activeFilters.Electrical"/>
+            <FilterLine filterName="Pluming" v-model="activeFilters.Pluming"/>
+            <FilterLine filterName="Doors" v-model="activeFilters.Doors"/>
+            <FilterLine filterName="Heating" v-model="activeFilters.Heating"/>
+            <FilterLine filterName="Garden" v-model="activeFilters.Garden"/>
+            <FilterLine filterName="Furniture" v-model="activeFilters.Furniture"/>
         </div>
+        <button @click="applyFilters"> Apply Filter </button>
     </div>
 </template>
 

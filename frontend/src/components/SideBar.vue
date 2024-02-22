@@ -1,6 +1,10 @@
 <script setup>
 import { RouterLink } from 'vue-router';
 import Filters from './Filters.vue';
+import { defineEmits } from 'vue';
+
+const emit = defineEmits(['applyFilters']);
+
 </script>
 
 <template>
@@ -8,7 +12,7 @@ import Filters from './Filters.vue';
         <RouterLink :to="{name: 'createPost'}">
             <button class="create-post-button">Create a post</button>
         </RouterLink>
-        <Filters />
+        <Filters @apply-filters="$emit('applyFilters')"/>
     </div>
 </template>
 

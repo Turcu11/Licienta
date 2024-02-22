@@ -15,7 +15,7 @@ GET http://127.0.0.1:3000/posts/all
 ###
 GET http://127.0.0.1:3000/posts/1
 ###
-GET http://127.0.0.1:3000/posts/category/Plumbing
+GET http://127.0.0.1:3000/posts/category/Pluming
 ###
 POST http://127.0.0.1:3000/posts/create
 Content-Type: application/json

@@ -222,6 +222,9 @@ const imageLoaded = computed(() => imgUrl.value !== null || imgUrl.value !== und
     font-style: normal;
     font-weight: 600;
     line-height: normal;
+    &:hover {
+        scale: 1.1;
+    }
 }
 
 .select-input {

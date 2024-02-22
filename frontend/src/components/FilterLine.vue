@@ -1,15 +1,22 @@
 <script setup>
+import { defineProps, defineEmits } from 'vue';
+
 const props = defineProps({
+    modelValue: Boolean,
     filterName: String,
-    filterIsChecked: Boolean,
-    default: false
-})
+});
+
+const emit = defineEmits(['update:modelValue']);
+
+const updateFilter = (isChecked) => {
+    emit('update:modelValue', isChecked);
+}
 </script>
 
 <template>
     <div>
         <label class="container" :for="filterName">{{ filterName }}
-            <input class="checkbox" type="checkbox" :checked="filterIsChecked" :id="filterName" :name="filterName"
+            <input class="checkbox" type="checkbox" @change="updateFilter($event.target.checked)" :checked="modelValue" :id="filterName" :name="filterName"
                 :value="filterName">
             <span class="checkmark"></span>
         </label>

@@ -75,4 +75,22 @@ const goBack = () => {
         color: #d3d3d3;
     }
 }
+
+@media (max-width: 1350px) {
+    .wrapper {
+        width: 60rem;
+    }
+}
+
+@media (max-width: 1000px) {
+    .wrapper {
+        width: 50rem;
+    }
+}
+
+@media (max-width: 850px) {
+    .wrapper {
+        width: 42rem;
+    }
+}
 </style>

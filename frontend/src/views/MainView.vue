@@ -4,6 +4,8 @@ import SideBar from '../components/SideBar.vue';
 import Posts from '../components/Posts.vue';
 
 let screenSize = ref(window.innerWidth);
+let filters = ref({});
+
 const updateScreenSize = () => {
     screenSize.value = window.innerWidth;
 };
@@ -15,14 +17,19 @@ onMounted(() => {
 onUnmounted(() => {
     window.removeEventListener('resize', updateScreenSize);
 });
+
+const handleUpdateFilters = (newFilters) => {
+    filters.value = newFilters;
+}
+
 </script>
     
 <template>
     <div class="wraper">
         <div v-if="screenSize > 1000">
-            <SideBar/>
+            <SideBar @apply-filters="handleUpdateFilters"/>
         </div>
-        <Posts/>
+        <Posts :filters="filters"/>
     </div>
 </template>
 

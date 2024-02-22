@@ -47,10 +47,10 @@ const getTimePassed = (createdAt) => {
 
 const imgUrl = computed(() => {
     if (props.image && props.image !== 'null' && props.image !== 'undefined' && props.image !== 'http://localhost:5173/placeholder.jpg' && props.image !== '' && props.image !== ' ') {
-        return props.image; 
-    } else if(props.image.includes('.jpg') || props.image.includes('.png')) {
         return props.image;
-    }else {
+    } else if (props.image.includes('.jpg') || props.image.includes('.png')) {
+        return props.image;
+    } else {
         return "http://localhost:5173/placeholder.jpg";
     }
 });
@@ -71,12 +71,14 @@ const imgUrl = computed(() => {
                     <p>{{ description }}</p>
                 </div>
                 <hr>
-                Special requirements: <b>{{ specialRequirements }} </b> <br />
-                Avalible: <b>{{ prefferedDays }}</b> <br />
-                Hours: <b>{{ prefferedInterval }} </b> <br />
+                <div class="extra-details">
+                    Special requirements: <b>{{ specialRequirements }} </b> <br />
+                    Avalible: <b>{{ prefferedDays }}</b> <br />
+                    Hours: <b>{{ prefferedInterval }} </b> <br />
+                </div>
                 <div class="payment-methods">
                     <PaymentMethod text="Card" :isTrue="payCard" />
-                    <PaymentMethod text="Cash" :isTrue="payCash"/>
+                    <PaymentMethod text="Cash" :isTrue="payCash" />
                 </div>
             </div>
             <div class="left">
@@ -173,7 +175,7 @@ const imgUrl = computed(() => {
     }
 }
 
-.middle .payment-methods{
+.middle .payment-methods {
     display: flex;
     justify-content: space-around;
     width: 22rem;
@@ -235,4 +237,100 @@ const imgUrl = computed(() => {
 body {
     scrollbar-face-color: #C12323;
     scrollbar-track-color: transparent;
+}
+
+@media (max-width: 1350px) {
+    .container {
+        width: 56rem;
+    }
+
+    .middle {
+        width: 14rem;
+
+        .description-box {
+            width: 14em;
+        }
+
+        hr {
+            width: 14em;
+        }
+
+        .extra-details {
+            width: 14em;
+        }
+
+        .payment-methods {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 14em;
+        }
+
+        .description-box {
+            max-height: 10rem;
+        }
+
+        h1 {
+            font-size: 1.7rem;
+        }
+    }
+
+    .img {
+        width: 24rem;
+    }
+}
+
+@media (max-width: 1000px) {
+    .container {
+        width: 46rem;
+    }
+
+    .middle {
+        width: 10rem;
+
+        .description-box {
+            width: 10em;
+            margin-top: 0.3rem;
+            margin-bottom: 0.3rem;
+        }
+
+        hr {
+            display: none;
+        }
+
+        .extra-details {
+            width: 10em;
+        }
+
+        .payment-methods {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 10em;
+        }
+
+        .payment-methods {
+            scale: 0.9;
+        }
+
+        .description-box {
+            max-height: 10rem;
+        }
+    }
+
+    .img {
+        height: 22rem;
+        width: 18rem;
+    }
+
+    .right {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    h1 {
+        margin-bottom: 0.5rem;
+        font-size: 1.5rem;
+    }
 }</style>

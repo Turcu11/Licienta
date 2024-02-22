@@ -7,7 +7,7 @@ router.get("/all", async (req, res) => {
         const posts = await Posts.findAll({
             order: [
                 ['createdAt', 'DESC']
-            ]
+            ],
         });
         res.json(posts);
     } catch (err) {
