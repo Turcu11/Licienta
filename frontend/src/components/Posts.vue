@@ -2,7 +2,7 @@
 import PostCard from './PostCard.vue';
 import SideBar from './SideBar.vue';
 import { usePostsData } from '../stores/postsData';
-import { ref, onMounted, onUnmounted, defineProps } from 'vue';
+import { ref, onMounted, onUnmounted, defineProps, defineEmits } from 'vue';
 import Menu from "../assets/icons/menu.svg";
 
 const props = defineProps({
@@ -10,11 +10,15 @@ const props = defineProps({
 })
 
 let results = ref(null);
+const emit = defineEmits(['applyFilters']); //here is where i define my emit for sending it to MainView
+const filteredPosts = ref([]);
 
 const postsData = usePostsData();
+const allThePosts = ref([]);
 
 onMounted(async () => {
     await postsData.getAllPosts();
+    allThePosts.value = postsData;
     results.value = postsData.posts.length;
 });
 
@@ -56,6 +60,24 @@ onMounted(() => {
 onUnmounted(() => {
     window.removeEventListener('resize', updateScreenSize);
 });
+
+const filterResults = (activeFilters) => {
+    console.log(activeFilters);
+    emit('applyFilters', activeFilters); // i need it to go up one more level to get it inside MainView
+
+    postsData.posts = postsData.posts.filter(post => {
+        //checks if there are no active filters
+        if(Object.keys(activeFilters).length === 0) return true;
+        return activeFilters[post.category];
+    });
+
+    console.log(filteredPosts.value);
+    results.value = filteredPosts.value.length;
+    if (filteredPosts.value.length === 0) {
+        results.value = postsData.posts.length;
+    }
+};
+
 </script>
 
 <template>
@@ -70,7 +92,7 @@ onUnmounted(() => {
         </div>
         <div v-if="showFilter && screenSize < 1000" class="filters" @click="filterToggle">
             <div class="filters-content" @click.stop>
-                <SideBar/>
+                <SideBar @apply-filters="filterResults"/>
             </div>
         </div>
         <div class="cards">

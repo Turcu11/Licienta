@@ -5,6 +5,10 @@ import { defineEmits } from 'vue';
 
 const emit = defineEmits(['applyFilters']);
 
+const handleApplyFilters = (activeFilters) => {
+    emit('applyFilters', activeFilters);
+}
+
 </script>
 
 <template>
@@ -12,7 +16,7 @@ const emit = defineEmits(['applyFilters']);
         <RouterLink :to="{name: 'createPost'}">
             <button class="create-post-button">Create a post</button>
         </RouterLink>
-        <Filters @apply-filters="$emit('applyFilters')"/>
+        <Filters @apply-filters="handleApplyFilters"/>
     </div>
 </template>
 

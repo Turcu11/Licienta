@@ -19,6 +19,7 @@ onUnmounted(() => {
 });
 
 const handleUpdateFilters = (newFilters) => {
+    console.log(newFilters);
     filters.value = newFilters;
 }
 

@@ -12,7 +12,7 @@ const activeFilters = ref({
 });
 
 const applyFilters = () => {
-    console.log(activeFilters.value);
+    // console.log(activeFilters.value);
     emit('applyFilters', activeFilters.value);
 }
 const emit = defineEmits(['applyFilters']);
