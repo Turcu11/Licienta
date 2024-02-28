@@ -15,7 +15,6 @@ const activeFilters = ref({
 });
 
 const applyFilters = () => {
-    console.log("Am aplicat noile filtre");
     filterData.setFilter({...activeFilters.value});
 }
 </script>
@@ -32,7 +31,7 @@ const applyFilters = () => {
             <FilterLine :currentState="filterData.filter.Garden" :modelVale="filterData.Garden" filterName="Garden" v-model="activeFilters.Garden"/>
             <FilterLine :currentState="filterData.filter.Furniture" :modelVale="filterData.Furniture" filterName="Furniture" v-model="activeFilters.Furniture"/>
         </div>
-        <button @click="applyFilters"> Apply Filter </button>
+        <button @click="applyFilters" class="apply-button"> Apply Filter </button>
     </div>
 </template>
 
@@ -64,5 +63,25 @@ const applyFilters = () => {
     font-style: normal;
     font-weight: 400;
     line-height: normal;
+}
+
+.apply-button {
+    margin-top: 1rem;
+    width: 10rem;
+    height: 2.5rem;
+    border-radius: 1.5rem;
+    border: none;
+    background: #484848;
+    color: #FFF;
+    font-family: inter;
+    text-align: center;
+    font-size: .95rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+
+    &:hover {
+        border: 2px solid #C12323;
+    }
 }
 </style>
