@@ -2,24 +2,23 @@
 import PostCard from './PostCard.vue';
 import SideBar from './SideBar.vue';
 import { usePostsData } from '../stores/postsData';
-import { ref, onMounted, onUnmounted, defineProps, defineEmits } from 'vue';
+import { useFilterData } from '../stores/filterData';
+import { ref, onMounted, onUnmounted, watch } from 'vue';
 import Menu from "../assets/icons/menu.svg";
 
-const props = defineProps({
-    filters: Object,
-})
 
 let results = ref(null);
-const emit = defineEmits(['applyFilters']); //here is where i define my emit for sending it to MainView
-const filteredPosts = ref([]);
-
 const postsData = usePostsData();
-const allThePosts = ref([]);
+const filterData = useFilterData();
 
 onMounted(async () => {
     await postsData.getAllPosts();
-    allThePosts.value = postsData;
+    filterData.setPosts(postsData.posts);
     results.value = postsData.posts.length;
+});
+
+watch(() => filterData.filter, () => {
+    filterResults();
 });
 
 const getTimePassed = (createdAt) => {
@@ -61,21 +60,19 @@ onUnmounted(() => {
     window.removeEventListener('resize', updateScreenSize);
 });
 
-const filterResults = (activeFilters) => {
-    console.log(activeFilters);
-    emit('applyFilters', activeFilters); // i need it to go up one more level to get it inside MainView
-
-    postsData.posts = postsData.posts.filter(post => {
-        //checks if there are no active filters
-        if(Object.keys(activeFilters).length === 0) return true;
-        return activeFilters[post.category];
-    });
-
-    console.log(filteredPosts.value);
-    results.value = filteredPosts.value.length;
-    if (filteredPosts.value.length === 0) {
-        results.value = postsData.posts.length;
+const filterResults = () => {
+    if (filterData.allFiltersOff) {
+        filterData.posts = postsData.posts;
+        results.value = filterData.posts.length;
+        return;
     }
+    else {
+        filterData.posts = postsData.posts.filter(post => {
+            return filterData.filter[post.category];
+        });
+        results.value = filterData.posts.length;
+    }
+
 };
 
 </script>
@@ -92,12 +89,12 @@ const filterResults = (activeFilters) => {
         </div>
         <div v-if="showFilter && screenSize < 1000" class="filters" @click="filterToggle">
             <div class="filters-content" @click.stop>
-                <SideBar @apply-filters="filterResults"/>
+                <SideBar />
             </div>
         </div>
         <div class="cards">
             <div class="post-cards-container">
-                <Router-Link :to="`/postDetail/${post.id}`" v-for="(post, index) in postsData.posts" :key="index">
+                <Router-Link :to="`/postDetail/${post.id}`" v-for="(post, index) in filterData.posts" :key="index">
                     <PostCard :title="post.title" :image="post.image" :description="post.description"
                         :posted-by="post.postedBy" :category="post.category" :price-offer="post.price"
                         :posted-at="getTimePassed(post.createdAt)" />
@@ -190,12 +187,13 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.5); 
+    background: rgba(0, 0, 0, 0.5);
     display: flex;
     justify-content: center;
     align-items: center;
     z-index: 1;
 }
+
 .filters-content {
     height: 85%;
     /* width: 20rem;

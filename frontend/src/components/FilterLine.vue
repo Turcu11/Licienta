@@ -4,11 +4,18 @@ import { defineProps, defineEmits } from 'vue';
 const props = defineProps({
     modelValue: Boolean,
     filterName: String,
+    currentState: Boolean
 });
 
 const emit = defineEmits(['update:modelValue']);
 
 const updateFilter = (isChecked) => {
+    console.log(
+    props.modelValue,
+    props.filterName,
+    props.currentState,
+    isChecked,
+)
     emit('update:modelValue', isChecked);
 }
 </script>
@@ -16,8 +23,8 @@ const updateFilter = (isChecked) => {
 <template>
     <div>
         <label class="container" :for="filterName">{{ filterName }}
-            <input class="checkbox" type="checkbox" @change="updateFilter($event.target.checked)" :checked="modelValue" :id="filterName" :name="filterName"
-                :value="filterName">
+            <input class="checkbox" type="checkbox" @change="updateFilter($event.target.checked)" :checked="currentState"
+                :id="filterName" :name="filterName" :value="filterName">
             <span class="checkmark"></span>
         </label>
     </div>

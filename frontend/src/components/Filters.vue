@@ -1,6 +1,9 @@
 <script setup>
 import FilterLine from './FilterLine.vue';
-import { ref, defineEmits } from 'vue';
+import { ref } from 'vue';
+import { useFilterData } from '../stores/filterData';
+
+const filterData = useFilterData();
 
 const activeFilters = ref({
     Electrical: false,
@@ -12,10 +15,9 @@ const activeFilters = ref({
 });
 
 const applyFilters = () => {
-    // console.log(activeFilters.value);
-    emit('applyFilters', activeFilters.value);
+    console.log("Am aplicat noile filtre");
+    filterData.setFilter({...activeFilters.value});
 }
-const emit = defineEmits(['applyFilters']);
 </script>
     
 <template>
@@ -23,12 +25,12 @@ const emit = defineEmits(['applyFilters']);
         <h1 class="filter-title">Filters</h1>
         <hr class="title-under-line">
         <div class="filters">
-            <FilterLine filterName="Electrical" v-model="activeFilters.Electrical"/>
-            <FilterLine filterName="Pluming" v-model="activeFilters.Pluming"/>
-            <FilterLine filterName="Doors" v-model="activeFilters.Doors"/>
-            <FilterLine filterName="Heating" v-model="activeFilters.Heating"/>
-            <FilterLine filterName="Garden" v-model="activeFilters.Garden"/>
-            <FilterLine filterName="Furniture" v-model="activeFilters.Furniture"/>
+            <FilterLine :currentState="filterData.filter.Electrical" :modelValue=filterData.Electrical filterName="Electrical" v-model="activeFilters.Electrical"/>
+            <FilterLine :currentState="filterData.filter.Pluming" :modelVale="filterData.Pluming" filterName="Pluming" v-model="activeFilters.Pluming"/>
+            <FilterLine :currentState="filterData.filter.Doors" :modelVale="filterData.Doors" filterName="Doors" v-model="activeFilters.Doors"/>
+            <FilterLine :currentState="filterData.filter.Heating" :modelVale="filterData.Heating" filterName="Heating" v-model="activeFilters.Heating"/>
+            <FilterLine :currentState="filterData.filter.Garden" :modelVale="filterData.Garden" filterName="Garden" v-model="activeFilters.Garden"/>
+            <FilterLine :currentState="filterData.filter.Furniture" :modelVale="filterData.Furniture" filterName="Furniture" v-model="activeFilters.Furniture"/>
         </div>
         <button @click="applyFilters"> Apply Filter </button>
     </div>
