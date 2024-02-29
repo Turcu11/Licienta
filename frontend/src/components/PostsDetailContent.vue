@@ -333,4 +333,87 @@ body {
         margin-bottom: 0.5rem;
         font-size: 1.5rem;
     }
+}
+
+@media (max-width: 850px) {
+    .container {
+        width: 36rem;
+        margin-bottom: 2rem;
+        padding-bottom: 1rem;
+        height: auto;
+    }
+
+    .section {
+        flex-direction: column;
+    }
+
+    .img {
+        width: 100%;
+        height: 20rem;
+    }
+
+    .middle {
+        width: 100%;
+        text-align: center;
+        padding: 0;
+        margin-top: 1rem;
+
+        .description-box {
+            width: 90%;
+            max-height: 10rem;
+        }
+
+        .extra-details {
+            width: 90%;
+        }
+
+        .payment-methods {
+            flex-direction: row;
+            width: 90%;
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        width: 25rem;
+        margin-bottom: 2rem;
+        padding-bottom: 1rem;
+        height: auto;
+    }
+}
+
+@media (max-width: 600px) {
+    .container {
+        width: 21rem;
+        margin-bottom: 2rem;
+        padding-bottom: 1rem;
+        height: auto;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        width: 16rem;
+        margin-bottom: 2rem;
+        padding-bottom: 1rem;
+        height: auto;
+    }
+
+    .img {
+        width: 16rem;
+        height: auto;
+    }
+
+    .middle {
+        .description-box {
+            max-height: max-content;
+            height: auto;
+        }
+    }
+    .section{
+        .right{
+            padding: 0px;
+        }
+    }
 }</style>

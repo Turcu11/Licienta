@@ -76,6 +76,19 @@ const goBack = () => {
     }
 }
 
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #C12323;
+    border-radius: 5px;
+}
+
 @media (max-width: 1350px) {
     .wrapper {
         width: 60rem;
@@ -91,6 +104,27 @@ const goBack = () => {
 @media (max-width: 850px) {
     .wrapper {
         width: 42rem;
+        overflow: auto;
+    }
+}
+
+@media (max-width: 768px) {
+    .wrapper {
+        width: 31rem;
+    }
+}
+
+@media (max-width: 600px) {
+    .wrapper {
+        width: 26rem;
+        overflow: auto;
+    }
+}
+
+@media (max-width: 480px) {
+    .wrapper {
+        width: 20rem;
+        overflow: auto;
     }
 }
 </style>
