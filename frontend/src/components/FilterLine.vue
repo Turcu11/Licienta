@@ -69,7 +69,6 @@ const updateFilter = (isChecked) => {
     vertical-align: middle;
 }
 
-
 .container input:checked~.checkmark {
     background-color: #C12323;
 }
@@ -96,31 +95,4 @@ const updateFilter = (isChecked) => {
     -ms-transform: rotate(45deg);
     transform: rotate(45deg);
 }
-
-
-// aaaaaaaaaaa
-
-// .filter-title{
-//     color: #FFF;
-//     margin: 1rem;
-//     font-family: inter;
-//     font-size: 1rem;
-//     font-style: normal;
-//     font-weight: 400;
-//     line-height: normal;
-//     margin-left: 0.5rem;
-// }
-
-// .checkbox {
-//     width: 1.125rem;
-//     height: 1.125rem;
-//     border-radius: 0.4375rem;
-//     border-radius: 30%;
-//     vertical-align: middle;
-//     border: 2px solid #C12323;
-//     appearance: none;
-//     // -webkit-appearance: none;
-//     // outline: none;
-//     cursor: pointer;
-// }
 </style>

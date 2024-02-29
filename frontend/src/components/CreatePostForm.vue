@@ -197,6 +197,24 @@ const imageLoaded = computed(() => imgUrl.value !== null || imgUrl.value !== und
     margin: 0;
 }
 
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #C12323;
+    border-radius: 5px;
+}
+
+body {
+    scrollbar-face-color: #C12323;
+    scrollbar-track-color: transparent;
+}
+
 .title {
     width: 18rem;
     height: 1.5rem;
@@ -335,7 +353,9 @@ const imageLoaded = computed(() => imgUrl.value !== null || imgUrl.value !== und
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    /* justify-content: space-between; */
+    @media (max-width: 768px){
+        display: none;
+    }
 }
 
 .row-for-payment {
@@ -433,6 +453,57 @@ const imageLoaded = computed(() => imgUrl.value !== null || imgUrl.value !== und
     }
     input:not([type="checkbox"]) {
         width: 8rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .row{
+        max-height: 40rem;
+        overflow: auto;
+        flex-direction: column;
+        align-items: center;
+    }
+    .create-post-container{
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+    }
+    .title {
+        width: 17rem;
+    }
+    .address {
+        width: 17rem;
+    }
+    .image-upload {
+        width: 17rem;
+    }
+    textarea {
+        width: 17rem;
+    }
+    input:not([type="checkbox"]) {
+        width: 17rem;
+    }
+    .create-post-button{
+        margin-bottom: 1.5rem;
+        margin-top: .8rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .title {
+        width: 13rem;
+    }
+    .address {
+        width: 13rem;
+    }
+    .image-upload {
+        width: 13rem;
+    }
+    textarea {
+        width: 13rem;
+    }
+    input:not([type="checkbox"]) {
+        width: 13rem;
     }
 }
 </style>

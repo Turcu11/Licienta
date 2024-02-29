@@ -12,10 +12,23 @@ const activeFilters = ref({
     Heating: false,
     Garden: false,
     Furniture: false,
+    Other: false,
 });
 
 const applyFilters = () => {
     filterData.setFilter({...activeFilters.value});
+}
+
+const clearFilters = () => {
+    filterData.setFilter({
+        Electrical: false,
+        Pluming: false,
+        Doors: false,
+        Heating: false,
+        Garden: false,
+        Furniture: false,
+        Other: false,
+    });
 }
 </script>
     
@@ -30,18 +43,19 @@ const applyFilters = () => {
             <FilterLine :currentState="filterData.filter.Heating" :modelVale="filterData.Heating" filterName="Heating" v-model="activeFilters.Heating"/>
             <FilterLine :currentState="filterData.filter.Garden" :modelVale="filterData.Garden" filterName="Garden" v-model="activeFilters.Garden"/>
             <FilterLine :currentState="filterData.filter.Furniture" :modelVale="filterData.Furniture" filterName="Furniture" v-model="activeFilters.Furniture"/>
+            <FilterLine :currentState="filterData.filter.Other" :modelVale="filterData.Other" filterName="Other" v-model="activeFilters.Other"/>
         </div>
         <button @click="applyFilters" class="apply-button"> Apply Filter </button>
+        <!-- <button @click="clearFilters" class="clear-button"> Clear Filters </button> -->
     </div>
 </template>
-
 
 <style lang="scss" scoped>
 .wraper {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 2rem;
+    margin-top: 0.5rem;
 }
 .filters{
     display: flex;
@@ -65,7 +79,7 @@ const applyFilters = () => {
     line-height: normal;
 }
 
-.apply-button {
+.apply-button, .clear-button {
     margin-top: 1rem;
     width: 10rem;
     height: 2.5rem;
@@ -82,6 +96,7 @@ const applyFilters = () => {
 
     &:hover {
         border: 2px solid #C12323;
+        transform: scale(1.1);
     }
 }
 </style>

@@ -29,8 +29,8 @@ import Filters from './Filters.vue';
 
 .create-post-button {
     margin-top: 2.5rem;
-    width: 12.5rem;
-    height: 3rem;
+    width: 11rem;
+    height: 2.8rem;
     border-radius: 1.5rem;
     border: none;
     background: #484848;
@@ -43,8 +43,8 @@ import Filters from './Filters.vue';
     line-height: normal;
 
     &:hover {
-        /* background: #636363; */
         border: 2px solid #C12323;
+        transform: scale(1.1);
     }
 }
 </style>

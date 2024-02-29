@@ -61,4 +61,18 @@ const goBack = () => {
         width: 42rem;
     }
 }
+
+@media (max-width: 768px) {
+    .wrapper {
+        width: 25rem;
+        height: auto;
+    }
+}
+
+@media (max-width: 480px) {
+    .wrapper {
+        width: 20rem;
+        height: auto;
+    }
+}
 </style>

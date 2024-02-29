@@ -31,7 +31,7 @@ defineProps({
                 </div>
 
                 <div class="right">
-                    <h4>Offered: {{ priceOffer }} &#8364</h4>
+                    <h4>Offered: {{ priceOffer }}&#8364</h4>
                     <p>{{ postedAt }}</p>
                 </div>
             </div>
@@ -95,7 +95,7 @@ p{
     flex-direction: column;
     margin-top: 1rem;
     margin-left: auto;
-    padding-right: 2rem;
+    padding-right: 1.5rem;
     text-align: right;
     color: rgba(255, 255, 255, 0.75);
     font-family: Inter;

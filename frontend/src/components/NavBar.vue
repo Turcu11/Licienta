@@ -51,6 +51,10 @@ const logout = () => {
     font-style: normal;
     font-weight: 600;
     line-height: normal;
+
+    &:hover {
+        transform: scale(1.1);
+    }
 }
 
 .user-welcome {
