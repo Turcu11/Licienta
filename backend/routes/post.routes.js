@@ -53,4 +53,14 @@ router.post("/create", async (req, res) => {
     }
 });
 
+router.delete("/:id", async (req, res) => {
+    try {
+        const post = await Posts.findByPk(req.params.id);
+        await post.destroy();
+        res.json({ message: "Post deleted" });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
 export default router;

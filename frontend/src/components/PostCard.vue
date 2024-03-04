@@ -1,6 +1,17 @@
 <script setup>
-import { defineProps, watch } from 'vue';
-defineProps({
+import { defineProps } from 'vue';
+import { useUserLoginData } from '../stores/userLoginData';
+import { usePostsData } from '../stores/postsData';
+import { useRouter } from 'vue-router';
+import Delete from "../assets/icons/Delete.svg";
+
+const postsData = usePostsData();
+const activeUser = useUserLoginData();
+const router = useRouter();
+
+const props = defineProps({
+    id: Number,
+    userId: Number,
     title: String,
     description: String,
     image: String,
@@ -10,8 +21,24 @@ defineProps({
     category: String
 })
 
+const isMyPost = () => {
+    if (activeUser.user.id === props.userId) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+const handleDelete = async () => {
+    if (confirm("Are you sure you want to delete this post?")) {
+        await postsData.deletePost(props.id);
+        router.push({ name: "mainView" });
+    } else {
+        return;
+    }
+}
 </script>
-    
+
 <template>
     <div>
         <div class="card">
@@ -31,6 +58,11 @@ defineProps({
                 </div>
 
                 <div class="right">
+                    <div v-if="isMyPost()" class="delete-button">
+                        <button @click="handleDelete()">
+                            <img :src="Delete" alt="Delete">
+                        </button>
+                    </div>
                     <h4>Offered: {{ priceOffer }}&#8364</h4>
                     <p>{{ postedAt }}</p>
                 </div>
@@ -46,6 +78,21 @@ defineProps({
     max-height: 4rem;
     overflow: hidden;
 }
+.delete-button {
+    button {
+        background: none;
+        border: none;
+        cursor: pointer;
+    }
+    img{
+        width: 1.5rem;
+        height: 1.5rem;
+        &:hover {
+            transform: scale(1.1);
+        }
+    }
+}
+
 .section {
     display: flex;
     flex-direction: row;
@@ -69,13 +116,14 @@ defineProps({
     border-radius: 1rem;
 }
 
-h1{
+h1 {
     margin-bottom: 0.3rem;
 }
 
-p{
+p {
     margin-top: 0.5rem;
 }
+
 .middle p {
     display: flex;
     flex-direction: column;
@@ -323,4 +371,5 @@ p{
         overflow: hidden;
         max-width: 10rem;
     }
-}</style>
+}
+</style>

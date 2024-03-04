@@ -62,13 +62,13 @@ onUnmounted(() => {
 
 const filterResults = () => {
     if (filterData.allFiltersOff) {
-        if(filterData.myPosts) {
+        if (filterData.myPosts) {
             filterData.posts = postsData.posts.filter(post => {
                 return post.userID === JSON.parse(localStorage.getItem('user')).id;
             });
             results.value = filterData.posts.length;
             return;
-        }else{
+        } else {
             filterData.posts = postsData.posts;
             results.value = filterData.posts.length;
             return;
@@ -102,7 +102,7 @@ const filterResults = () => {
         <div class="cards">
             <div class="post-cards-container">
                 <Router-Link :to="`/postDetail/${post.id}`" v-for="(post, index) in filterData.posts" :key="index">
-                    <PostCard :title="post.title" :image="post.image" :description="post.description"
+                    <PostCard :id="post.id" :userId="post.userID" :title="post.title" :image="post.image" :description="post.description"
                         :posted-by="post.postedBy" :category="post.category" :price-offer="post.price"
                         :posted-at="getTimePassed(post.createdAt)" />
                 </Router-Link>

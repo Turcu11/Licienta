@@ -46,7 +46,7 @@ export const usePostsData = defineStore('postsData', {
         },
         async createPost(post) {
             try {
-                const response = await axios.post('http://127.0.1:3000/posts/create', post);
+                const response = await axios.post('http://127.0.0.1:3000/posts/create', post);
                 this.posts = response.data;
                 this.error = null;
                 console.log(this.posts);
@@ -54,6 +54,18 @@ export const usePostsData = defineStore('postsData', {
             catch (error) {
                 console.error('Failed to create post:', error);
                 this.error = 'Failed to create post.';
+            }
+        },
+        async deletePost(id) {
+            try {
+                const response = await axios.delete(`http://127.0.0.1:3000/posts/${id}`);
+                // this.posts = response.data;
+                this.error = null;
+                // console.log(this.posts);
+            }
+            catch {
+                console.error('Failed to delete post:', error);
+                this.error = 'Failed to delete post.';
             }
         }
     }
