@@ -33,8 +33,14 @@ const getTimePassed = (createdAt) => {
     const diffInMinutes = Math.floor(diffInSeconds / 60);
     const diffInHours = Math.floor(diffInMinutes / 60);
     const diffInDays = Math.floor(diffInHours / 24);
+    const diffInMonths = Math.floor(diffInDays / 30.44); // Average number of days in a month
+    const diffInYears = Math.floor(diffInDays / 365.25); // Average number of days in a year (includes leap years)
 
-    if (diffInDays > 0) {
+    if (diffInYears > 0) {
+        return `${diffInYears} year(s) ago`;
+    } else if (diffInMonths > 0) {
+        return `${diffInMonths} month(s) ago`;
+    } else if (diffInDays > 0) {
         return `${diffInDays} day(s) ago`;
     } else if (diffInHours > 0) {
         return `${diffInHours} hour(s) ago`;
