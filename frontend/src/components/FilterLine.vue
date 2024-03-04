@@ -10,12 +10,6 @@ const props = defineProps({
 const emit = defineEmits(['update:modelValue']);
 
 const updateFilter = (isChecked) => {
-    console.log(
-    props.modelValue,
-    props.filterName,
-    props.currentState,
-    isChecked,
-)
     emit('update:modelValue', isChecked);
 }
 </script>

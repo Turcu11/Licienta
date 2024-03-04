@@ -1,6 +1,25 @@
 <script setup>
 import { RouterLink } from 'vue-router';
 import Filters from './Filters.vue';
+import { useFilterData } from '../stores/filterData';
+
+const filterStore = useFilterData();
+
+const isUserLogedIn = () => {
+    if (localStorage.getItem('user')) {
+        return true;
+    } else {
+        return false;
+    }
+};
+
+const haddleMyPosts = () => {
+    if (filterStore.myPosts) {
+        filterStore.setMyPosts(false);
+    } else {
+        filterStore.setMyPosts(true);
+    }
+};
 
 </script>
 
@@ -10,6 +29,9 @@ import Filters from './Filters.vue';
             <button class="create-post-button">Create a post</button>
         </RouterLink>
         <Filters/>
+        <div v-if="isUserLogedIn()" class="my-posts">
+            <button class="my-posts-button" :class="{'my-posts-button-active': filterStore.myPosts && filterStore.allFiltersOff}" @click="haddleMyPosts()">See my posts</button>
+        </div>
     </div>
 </template>
 
@@ -46,5 +68,32 @@ import Filters from './Filters.vue';
         border: 2px solid #C12323;
         transform: scale(1.1);
     }
+}
+
+.my-posts-button {
+    margin-top: 1rem;
+    width: 10rem;
+    height: 2.5rem;
+    border-radius: 1.5rem;
+    border: none;
+    background: #484848;
+    color: #FFF;
+    font-family: inter;
+    text-align: center;
+    font-size: .95rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+
+    &:hover {
+        border: 2px solid #C12323;
+        transform: scale(1.1);
+    }
+}
+.my-posts-button-active{
+    background: #C12323;
+    color: #FFF;
+    border: 2px solid #C12323;
+    transform: scale(1.1);
 }
 </style>

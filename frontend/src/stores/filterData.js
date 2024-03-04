@@ -5,6 +5,7 @@ export const useFilterData = defineStore('filterData', {
     state: () => ({
         filter: ref([]),
         posts: ref([]),
+        myPosts: ref(null),
         error: ref(null)
     }),
     actions: {
@@ -20,7 +21,13 @@ export const useFilterData = defineStore('filterData', {
         },
         getPosts() {
             return this.posts;
-        }
+        },
+        setMyPosts(myPosts) {
+            this.myPosts = myPosts;
+        },
+        getMyPosts() {
+            return this.myPosts;
+        },
     },
     getters: {
         allFiltersOff() {

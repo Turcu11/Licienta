@@ -62,9 +62,17 @@ onUnmounted(() => {
 
 const filterResults = () => {
     if (filterData.allFiltersOff) {
-        filterData.posts = postsData.posts;
-        results.value = filterData.posts.length;
-        return;
+        if(filterData.myPosts) {
+            filterData.posts = postsData.posts.filter(post => {
+                return post.userID === JSON.parse(localStorage.getItem('user')).id;
+            });
+            results.value = filterData.posts.length;
+            return;
+        }else{
+            filterData.posts = postsData.posts;
+            results.value = filterData.posts.length;
+            return;
+        }
     }
     else {
         filterData.posts = postsData.posts.filter(post => {
@@ -72,7 +80,6 @@ const filterResults = () => {
         });
         results.value = filterData.posts.length;
     }
-
 };
 
 </script>

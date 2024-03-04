@@ -337,7 +337,7 @@ body {
 
 @media (max-width: 850px) {
     .container {
-        width: 36rem;
+        width: 38rem;
         margin-bottom: 2rem;
         padding-bottom: 1rem;
         height: auto;

@@ -27,29 +27,18 @@ const goBack = () => {
 
 <template>
     <div class="wrapper">
-        <h1 @click="goBack" class="go-back" > &#x2039 Go back </h1>
+        <h1 @click="goBack" class="go-back"> &#x2039 Go back </h1>
         <div v-if="isLoading">Loading...</div>
         <div v-else-if="currentPost.post">
-            <PostsDetailContent 
-                :id="currentPost.post.id" 
-                :title="currentPost.post.title" 
-                :description="currentPost.post.description"
-                :address="currentPost.post.address"
-                :category="currentPost.post.category"
-                :specialRequirements="currentPost.post.specialRequirments"
-                :prefferedInterval="currentPost.post.preferredInterval"
-                :prefferedDays="currentPost.post.preferredDays"
-                :payCash="currentPost.post.payCash"
-                :payCard="currentPost.post.payCard"
-                :price="currentPost.post.price"
-                :isNegotiable="currentPost.post.isNegotiable"
-                :image="currentPost.post.image"
-                :isDone="currentPost.post.isDone"
-                :userID="currentPost.post.userID"
-                :serviceProviderID="currentPost.post.serviceProviderID"
-                :createdAt="currentPost.post.createdAt"
-                :user="currentPost.post.User"
-            />
+            <PostsDetailContent :id="currentPost.post.id" :title="currentPost.post.title"
+                :description="currentPost.post.description" :address="currentPost.post.address"
+                :category="currentPost.post.category" :specialRequirements="currentPost.post.specialRequirments"
+                :prefferedInterval="currentPost.post.preferredInterval" :prefferedDays="currentPost.post.preferredDays"
+                :payCash="currentPost.post.payCash" :payCard="currentPost.post.payCard" :price="currentPost.post.price"
+                :isNegotiable="currentPost.post.isNegotiable" :image="currentPost.post.image"
+                :isDone="currentPost.post.isDone" :userID="currentPost.post.userID"
+                :serviceProviderID="currentPost.post.serviceProviderID" :createdAt="currentPost.post.createdAt"
+                :user="currentPost.post.User" />
         </div>
     </div>
 </template>
