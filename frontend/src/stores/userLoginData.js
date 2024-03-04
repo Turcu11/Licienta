@@ -22,7 +22,7 @@ export const useUserLoginData = defineStore('userLoginData', {
                 else if (this.user.password === password) {
                     this.error = null;
                     console.log(`You are logged in as ${this.user.fullName}!`);
-                    console.log(this.user); 
+                    // console.log(this.user); 
                     return true; 
                 } else {
                     alert(`Wrong password. Please try again.`)

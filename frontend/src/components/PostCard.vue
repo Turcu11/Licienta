@@ -22,9 +22,15 @@ const props = defineProps({
 })
 
 const isMyPost = () => {
-    if (activeUser.user.id === props.userId) {
-        return true;
-    } else {
+    if(activeUser && activeUser.user){
+        if (activeUser.user.id === props.userId) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+    else{
         return false;
     }
 }
@@ -78,15 +84,18 @@ const handleDelete = async () => {
     max-height: 4rem;
     overflow: hidden;
 }
+
 .delete-button {
     button {
         background: none;
         border: none;
         cursor: pointer;
     }
-    img{
+
+    img {
         width: 1.5rem;
         height: 1.5rem;
+
         &:hover {
             transform: scale(1.1);
         }
