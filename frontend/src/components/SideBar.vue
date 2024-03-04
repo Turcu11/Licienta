@@ -30,7 +30,7 @@ const haddleMyPosts = () => {
         </RouterLink>
         <Filters/>
         <div v-if="isUserLogedIn()" class="my-posts">
-            <button class="my-posts-button" :class="{'my-posts-button-active': filterStore.myPosts && filterStore.allFiltersOff}" @click="haddleMyPosts()">See my posts</button>
+            <button class="my-posts-button" :class="{'my-posts-button-active': filterStore.myPosts && filterStore.allFiltersOff}" @click="haddleMyPosts()">Posted by me</button>
         </div>
     </div>
 </template>

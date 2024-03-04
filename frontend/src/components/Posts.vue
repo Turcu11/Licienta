@@ -17,7 +17,7 @@ onMounted(async () => {
     results.value = postsData.posts.length;
 });
 
-watch(() => filterData.filter, () => {
+watch(() => (filterData.filter || filterData.myPosts), () => {
     filterResults();
 });
 
