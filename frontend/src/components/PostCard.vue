@@ -10,19 +10,12 @@ const activeUser = useUserLoginData();
 const router = useRouter();
 
 const props = defineProps({
-    id: Number,
-    userId: Number,
-    title: String,
-    description: String,
-    image: String,
-    priceOffer: Number,
-    postedBy: String,
+    post: Object,
     postedAt: String,
-    category: String
 })
 
 const isMyPost = () => {
-    if(activeUser && activeUser.user){
+    if (activeUser && activeUser.user) {
         if (activeUser.user.id === props.userId) {
             return true;
         }
@@ -30,14 +23,14 @@ const isMyPost = () => {
             return false;
         }
     }
-    else{
+    else {
         return false;
     }
 }
 
 const handleDelete = async () => {
     if (confirm("Are you sure you want to delete this post?")) {
-        await postsData.deletePost(props.id);
+        await postsData.deletePost(props.post.id);
         router.push({ name: "mainView" });
     } else {
         return;
@@ -50,17 +43,17 @@ const handleDelete = async () => {
         <div class="card">
             <div class="section">
                 <div class="left">
-                    <img class="image" v-if="image" :src="image">
+                    <img class="image" v-if="post.image" :src="post.image">
                     <img class="image" v-else src="/placeholder.jpg">
                 </div>
 
                 <div class="middle">
-                    <h1 class="title">{{ title }}</h1>
+                    <h1 class="title">{{ post.title }}</h1>
                     <div class="description-box">
-                        <p class="description">{{ description }}</p>
+                        <p class="description">{{ post.description }}</p>
                     </div>
                     <br>
-                    <p>Categoty: {{ category }}</p>
+                    <p>Categoty: {{ post.category }}</p>
                 </div>
 
                 <div class="right">
@@ -69,7 +62,7 @@ const handleDelete = async () => {
                             <img :src="Delete" alt="Delete">
                         </button>
                     </div>
-                    <h4>Offered: {{ priceOffer }}&#8364</h4>
+                    <h4>Offered: {{ post.priceOffer }}&#8364</h4>
                     <p>{{ postedAt }}</p>
                 </div>
             </div>
@@ -82,6 +75,7 @@ const handleDelete = async () => {
 .description-box {
     max-width: 45rem;
     max-height: 4rem;
+    text-overflow: ellipsis;
     overflow: hidden;
 }
 
@@ -193,6 +187,7 @@ p {
     .middle,
     p,
     .description {
+        text-overflow: ellipsis;
         max-width: 30rem;
     }
 
@@ -207,6 +202,7 @@ p {
     .middle,
     p,
     .description {
+        text-overflow: ellipsis;
         max-width: 25rem;
     }
 
@@ -221,6 +217,7 @@ p {
     .middle,
     p,
     .description {
+        text-overflow: ellipsis;
         max-width: 20rem;
     }
 }
@@ -259,6 +256,7 @@ p {
     .middle,
     p,
     .description {
+        text-overflow: ellipsis;
         max-width: 15rem;
     }
 
@@ -299,6 +297,7 @@ p {
         max-height: 15rem;
 
         .description {
+            text-overflow: ellipsis;
             max-width: 15rem;
             overflow: hidden;
         }
@@ -337,6 +336,7 @@ p {
     .middle,
     p,
     .description {
+        text-overflow: ellipsis;
         max-width: 14rem;
         max-height: 12rem;
         overflow: hidden;
@@ -376,8 +376,9 @@ p {
     .middle,
     p,
     .description {
-        max-height: 10rem;
+        text-overflow: ellipsis;
         overflow: hidden;
+        max-height: 10rem;
         max-width: 10rem;
     }
 }

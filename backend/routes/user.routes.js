@@ -1,6 +1,5 @@
 import {Router} from "express";
 import {Users} from "../db.js";
-import bodyParser from "body-parser";
 const router = Router();
 
 ///get all the users

@@ -16,7 +16,7 @@ const activeFilters = ref({
 });
 
 const applyFilters = () => {
-    filterData.setFilter({...activeFilters.value});
+filterData.setFilter({...activeFilters.value});
 }
 
 const clearFilters = () => {

@@ -1,61 +1,29 @@
 <script setup>
 import { computed } from 'vue';
 import PaymentMethod from './PaymentMethod.vue';
+import { getTimePassed } from '../utils/TimeUtils.js';
+
+const isUserLoggedIn = computed(() => {
+    return localStorage.getItem('user') !== null;
+});
+
+const isUserServiceProvider = computed(() => {
+    if (!isUserLoggedIn.value) return false;
+    const user = JSON.parse(localStorage.getItem('user'));
+    return user.isServiceProvider;
+});
 
 const props = defineProps({
-    id: Number,
-    title: String,
-    description: String,
-    address: String,
-    category: String,
-    specialRequirements: String,
-    prefferedInterval: String,
-    prefferedDays: String,
-    payCash: Boolean,
-    payCard: Boolean,
-    price: Number,
-    isNegotiable: Boolean,
-    image: String,
-    isDone: Boolean,
-    userID: Number,
-    serviceProviderID: Number,
-    createdAt: String,
-    updatedAt: String,
-    deletedAt: String,
+    post: Object,
     user: Object,
 })
 
-const getTimePassed = (createdAt) => {
-    const now = new Date();
-    const postDate = new Date(createdAt);
-    const diffInMilliseconds = now - postDate;
-    const diffInSeconds = Math.floor(diffInMilliseconds / 1000);
-    const diffInMinutes = Math.floor(diffInSeconds / 60);
-    const diffInHours = Math.floor(diffInMinutes / 60);
-    const diffInDays = Math.floor(diffInHours / 24);
-    const diffInMonths = Math.floor(diffInDays / 30.44); // Average number of days in a month
-    const diffInYears = Math.floor(diffInDays / 365.25); // Average number of days in a year (includes leap years)
-
-    if (diffInYears > 0) {
-        return `${diffInYears} year(s) ago`;
-    } else if (diffInMonths > 0) {
-        return `${diffInMonths} month(s) ago`;
-    } else if (diffInDays > 0) {
-        return `${diffInDays} day(s) ago`;
-    } else if (diffInHours > 0) {
-        return `${diffInHours} hour(s) ago`;
-    } else if (diffInMinutes > 0) {
-        return `${diffInMinutes} minute(s) ago`;
-    } else {
-        return `${diffInSeconds} second(s) ago`;
-    }
-};
 
 const imgUrl = computed(() => {
-    if (props.image && props.image !== 'null' && props.image !== 'undefined' && props.image !== 'http://localhost:5173/placeholder.jpg' && props.image !== '' && props.image !== ' ') {
-        return props.image;
-    } else if (props.image.includes('.jpg') || props.image.includes('.png')) {
-        return props.image;
+    if (props.post.image && props.post.image !== 'null' && props.post.image !== 'undefined' && props.post.image !== 'http://localhost:5173/placeholder.jpg' && props.post.image !== '' && props.post.image !== ' ') {
+        return props.post.image;
+    } else if (props.image.post.includes('.jpg') || props.post.image.includes('.png')) {
+        return props.post.image;
     } else {
         return "http://localhost:5173/placeholder.jpg";
     }
@@ -72,29 +40,31 @@ const imgUrl = computed(() => {
                 </div>
             </div>
             <div class="middle">
-                <h1>{{ title }}</h1>
+                <h1>{{ post.title }}</h1>
                 <div class="description-box">
-                    <p>{{ description }}</p>
+                    <p>{{ post.description }}</p>
                 </div>
                 <hr>
                 <div class="extra-details">
-                    Special requirements: <b>{{ specialRequirements }} </b> <br />
-                    Avalible: <b>{{ prefferedDays }}</b> <br />
-                    Hours: <b>{{ prefferedInterval }} </b> <br />
+                    Special requirements: <b>{{ post.specialRequirements }} </b> <br />
+                    Avalible: <b>{{ post.prefferedDays }}</b> <br />
+                    Hours: <b>{{ post.prefferedInterval }} </b> <br />
                 </div>
                 <div class="payment-methods">
-                    <PaymentMethod text="Card" :isTrue="payCard" />
-                    <PaymentMethod text="Cash" :isTrue="payCash" />
+                    <PaymentMethod text="Card" :isTrue="post.payCard" />
+                    <PaymentMethod text="Cash" :isTrue="post.payCash" />
                 </div>
             </div>
             <div class="left">
                 <div class="left-container">
                     <h3 class="posted-by">Posted by:</h3>
                     <h1 class="user-name">{{ user.fullName }}</h1>
-                    <h1 class="user-phone">&#9742; {{ user.phone }}</h1>
+                    <h1 v-if="isUserLoggedIn" class="user-phone">&#9742; {{ user.phone }}</h1>
+                    <h1 v-if="!isUserLoggedIn" class="user-phone">&#9742; Log in to see the phone number !</h1>
                     <h5 class="for-address">Address:</h5>
-                    <h5 class="address">{{ address }}</h5>
-                    <span class="created-at"> &#x1F55F; {{ getTimePassed(createdAt) }}</span>
+                    <h5 class="address">{{ post.address }}</h5>
+                    <span class="created-at"> &#x1F55F; {{ getTimePassed(post.createdAt) }}</span>
+                    <button v-if="isUserServiceProvider">Take job</button>
                 </div>
             </div>
         </div>
@@ -333,6 +303,11 @@ body {
         display: flex;
         justify-content: center;
         align-items: center;
+
+    }
+
+    .left-container {
+        height: auto;
     }
 
     h1 {
@@ -417,9 +392,11 @@ body {
             height: auto;
         }
     }
-    .section{
-        .right{
+
+    .section {
+        .right {
             padding: 0px;
         }
     }
-}</style>
+}
+</style>

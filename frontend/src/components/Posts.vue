@@ -3,6 +3,7 @@ import PostCard from './PostCard.vue';
 import SideBar from './SideBar.vue';
 import { usePostsData } from '../stores/postsData';
 import { useFilterData } from '../stores/filterData';
+import { getTimePassed } from '../utils/TimeUtils.js';
 import { ref, onMounted, onUnmounted, watch } from 'vue';
 import Menu from "../assets/icons/menu.svg";
 
@@ -20,32 +21,6 @@ onMounted(async () => {
 watch(() => (filterData.filter || filterData.myPosts), () => {
     filterResults();
 });
-
-const getTimePassed = (createdAt) => {
-    const now = new Date();
-    const postDate = new Date(createdAt);
-    const diffInMilliseconds = now - postDate;
-    const diffInSeconds = Math.floor(diffInMilliseconds / 1000);
-    const diffInMinutes = Math.floor(diffInSeconds / 60);
-    const diffInHours = Math.floor(diffInMinutes / 60);
-    const diffInDays = Math.floor(diffInHours / 24);
-    const diffInMonths = Math.floor(diffInDays / 30.44); // Average number of days in a month
-    const diffInYears = Math.floor(diffInDays / 365.25); // Average number of days in a year (includes leap years)
-
-    if (diffInYears > 0) {
-        return `${diffInYears} year(s) ago`;
-    } else if (diffInMonths > 0) {
-        return `${diffInMonths} month(s) ago`;
-    } else if (diffInDays > 0) {
-        return `${diffInDays} day(s) ago`;
-    } else if (diffInHours > 0) {
-        return `${diffInHours} hour(s) ago`;
-    } else if (diffInMinutes > 0) {
-        return `${diffInMinutes} minute(s) ago`;
-    } else {
-        return `${diffInSeconds} second(s) ago`;
-    }
-};
 
 let showFilter = ref(false);
 
@@ -108,9 +83,7 @@ const filterResults = () => {
         <div class="cards">
             <div class="post-cards-container">
                 <Router-Link :to="`/postDetail/${post.id}`" v-for="(post, index) in filterData.posts" :key="index">
-                    <PostCard :id="post.id" :userId="post.userID" :title="post.title" :image="post.image" :description="post.description"
-                        :posted-by="post.postedBy" :category="post.category" :price-offer="post.price"
-                        :posted-at="getTimePassed(post.createdAt)" />
+                    <PostCard :post="post" :posted-at="getTimePassed(post.createdAt)" />
                 </Router-Link>
             </div>
         </div>
@@ -209,13 +182,6 @@ body {
 
 .filters-content {
     height: 85%;
-    /* width: 20rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    border-radius: 1rem;
-    background-color: #343434; */
 }
 
 @media (max-width: 1600px) {

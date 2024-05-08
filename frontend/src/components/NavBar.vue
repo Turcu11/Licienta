@@ -25,19 +25,22 @@ const logout = () => {
                 <img @click="logout" class="nav-bar-logo" src="/Logo white.png" alt="" srcset="">
             </RouterLink>
 
-            <div class="user-welcome" v-if="!userData.error && userData.user != undefined">Hello <b>
-                {{userData.user.fullName }}</b>
-                <RouterLink v-if="!userData.error && userData.user != undefined" :to="{ name: 'mainView' }">
-                    <button class="logout-button-red" @click="logout">Logout</button>
+            <div class="user-welcome">
+                <div v-if="!userData.error && userData.user != undefined">
+                    Hello <b>{{ userData.user.fullName }}</b>
+                    <RouterLink :to="{ name: 'mainView' }">
+                        <button class="logout-button-red" @click="logout">Logout</button>
+                    </RouterLink>
+                </div>
+                <RouterLink v-if="!userData.user" :to="{ name: 'login' }">
+                    <button class="logout-button-red">Login</button>
                 </RouterLink>
             </div>
-
         </nav>
     </div>
 </template>
 
 <style lang="scss" scoped>
-
 .logout-button-red {
     width: 5rem;
     height: 2rem;
@@ -95,9 +98,10 @@ const logout = () => {
 
 @media (max-width: 480px) {
 
-    .nav-bar{
+    .nav-bar {
         height: 6rem;
     }
+
     .nav-bar-logo {
         margin: 0 0 0 1.75rem;
         width: 9.1875rem;
@@ -110,7 +114,8 @@ const logout = () => {
         text-align: end;
         margin-right: 1rem;
     }
-    .logout-button-red{
+
+    .logout-button-red {
         margin-top: .5rem;
         margin-left: 0rem;
     }

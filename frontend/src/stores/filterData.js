@@ -12,7 +12,6 @@ export const useFilterData = defineStore('filterData', {
         getFilter() {
             return this.filter;
         },
-
         setFilter(filter) {
             this.filter = filter;
         },
