@@ -16,7 +16,7 @@ const props = defineProps({
 
 const isMyPost = () => {
     if (activeUser && activeUser.user) {
-        if (activeUser.user.id === props.userId) {
+        if (activeUser.user.id === props.post.userID) {
             return true;
         }
         else {
