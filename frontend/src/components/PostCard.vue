@@ -16,16 +16,10 @@ const props = defineProps({
 
 const isMyPost = () => {
     if (activeUser && activeUser.user) {
-        if (activeUser.user.id === props.post.userID) {
-            return true;
-        }
-        else {
-            return false;
-        }
+        if (activeUser.user.id === props.post.userID) return true;
+        else return false;
     }
-    else {
-        return false;
-    }
+    else return false;
 }
 
 const handleDelete = async () => {

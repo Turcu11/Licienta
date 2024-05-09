@@ -20,14 +20,21 @@ const props = defineProps({
 
 
 const imgUrl = computed(() => {
-    if (props.post.image && props.post.image !== 'null' && props.post.image !== 'undefined' && props.post.image !== 'http://localhost:5173/placeholder.jpg' && props.post.image !== '' && props.post.image !== ' ') {
+    if (props.post.image && props.post.image !== 'null' &&
+        props.post.image !== 'undefined' &&
+        props.post.image !== 'http://localhost:5173/placeholder.jpg' &&
+        props.post.image !== '' &&
+        props.post.image !== ' ') {
         return props.post.image;
     } else if (props.image.post.includes('.jpg') || props.post.image.includes('.png')) {
         return props.post.image;
-    } else {
-        return "http://localhost:5173/placeholder.jpg";
     }
+    return "http://localhost:5173/placeholder.jpg";
 });
+
+function handleTakeJob() {
+    alert('Method not implemented');
+}
 
 </script>
 
@@ -64,8 +71,8 @@ const imgUrl = computed(() => {
                     <h5 class="for-address">Address:</h5>
                     <h5 class="address">{{ post.address }}</h5>
                     <span class="created-at"> &#x1F55F; {{ getTimePassed(post.createdAt) }}</span>
-                    <button v-if="isUserServiceProvider">Take job</button>
                 </div>
+                <button class="take-job-button" v-if="isUserServiceProvider" @click="handleTakeJob()">Take job</button>
             </div>
         </div>
     </div>
@@ -95,7 +102,9 @@ const imgUrl = computed(() => {
 
 .left {
     display: flex;
+    flex-direction: column;
     align-items: center;
+    margin: 0px 10px;
     justify-content: center;
 }
 
@@ -110,6 +119,26 @@ const imgUrl = computed(() => {
     border-radius: 2rem;
     width: 90%;
     height: 70%;
+
+}
+
+.take-job-button {
+    width: 10rem;
+    height: 3rem;
+    background-color: #C12323;
+    margin-top: 1rem;
+    border-radius: 2.5rem;
+    border: none;
+    color: #FFF;
+    text-align: center;
+    font-size: .9rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+
+    &:hover {
+        transform: scale(1.1);
+    }
 }
 
 .posted-by {
@@ -193,7 +222,8 @@ const imgUrl = computed(() => {
     width: 75rem;
     height: 35rem;
     border-radius: 1.25rem;
-    padding-right: 10px;
+    // padding-right: 10px;
+    overflow: hidden;
     background-color: #484848;
 }
 
@@ -352,6 +382,11 @@ body {
             flex-direction: row;
             width: 90%;
         }
+    }
+
+    .left {
+        margin: auto;
+        width: 85%;
     }
 }
 
