@@ -107,14 +107,10 @@ export const Posts = sequelize.define(
         payCash: {
             type: DataTypes.BOOLEAN,
             allowNull: true,
-            /*here i have to make sure that the user is a service provider, 
-            and also from the front end that it will choose at least one option*/
         },
         payCard: {
             type: DataTypes.BOOLEAN,
             allowNull: true,
-            /*here i have to make sure that the user is a service provider, 
-            and also from the front end that it will choose at least one option*/
         },
         price: {
             type: DataTypes.INTEGER,

@@ -10,7 +10,7 @@ export const usePostsData = defineStore('postsData', {
     actions: {
         async getAllPosts() {
             try {
-                const response = await axios.get('http://127.0.0.1:3000/posts/all');
+                const response = await axios.get('http://127.0.0.1:3000/posts/all-open-posts');
                 this.posts = response.data;
                 this.error = null;
                 // console.log(this.posts);
@@ -20,6 +20,11 @@ export const usePostsData = defineStore('postsData', {
                 this.error = 'Failed to get posts.';
             }
         },
+
+        async getAllDonePosts() {
+
+        },
+
         async getPostById(id) {
             try {
                 const response = await axios.get(`http://127.0.0.1:3000/posts/${id}`);
@@ -32,6 +37,7 @@ export const usePostsData = defineStore('postsData', {
                 this.error = 'Failed to get posts.';
             }
         },
+
         async getPostByCategory(category) {
             try {
                 const response = await axios.get(`http://127.0.0.1:3000/posts/category/${category}`);
@@ -44,6 +50,7 @@ export const usePostsData = defineStore('postsData', {
                 this.error = 'Failed to get posts.';
             }
         },
+
         async createPost(post) {
             try {
                 const response = await axios.post('http://127.0.0.1:3000/posts/create', post);
@@ -56,12 +63,22 @@ export const usePostsData = defineStore('postsData', {
                 this.error = 'Failed to create post.';
             }
         },
+
+        async markPostAsDone(id, userId) {
+            try {
+                const response = await axios.put(`http://127.0.0.1:3000/posts/mark-post-as-done/${id}/${userId}`);
+                this.error = null;
+            }
+            catch (error) {
+                console.error('Failed to mark post as done:', error);
+                this.error = 'Failed to mark post as done.';
+            }
+        },
+        
         async deletePost(id) {
             try {
                 const response = await axios.delete(`http://127.0.0.1:3000/posts/${id}`);
-                // this.posts = response.data;
                 this.error = null;
-                // console.log(this.posts);
             }
             catch {
                 console.error('Failed to delete post:', error);

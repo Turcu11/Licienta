@@ -1,7 +1,13 @@
 <script setup>
 import { computed } from 'vue';
+import { useRouter } from 'vue-router';
 import PaymentMethod from './PaymentMethod.vue';
 import { getTimePassed } from '../utils/TimeUtils.js';
+import { usePostsData } from '../stores/postsData';
+
+
+const postsData = usePostsData();
+const router = useRouter();
 
 const isUserLoggedIn = computed(() => {
     return localStorage.getItem('user') !== null;
@@ -12,6 +18,12 @@ const isUserServiceProvider = computed(() => {
     const user = JSON.parse(localStorage.getItem('user'));
     return user.isServiceProvider;
 });
+
+const getServiceProviderId = () => {
+    if (!isUserLoggedIn.value) return null;
+    const user = JSON.parse(localStorage.getItem('user'));
+    return user.id;
+}
 
 const props = defineProps({
     post: Object,
@@ -33,7 +45,12 @@ const imgUrl = computed(() => {
 });
 
 function handleTakeJob() {
-    alert('Method not implemented');
+    if (confirm(`Are you sure you want to take this job?\n\n${props.post.title}\nyou have to work on: ${props.post.preferredDays}\nin the following interval: ${props.post.preferredInterval}\nfor the price: ${props.post.price}€`)) {
+        postsData.markPostAsDone(props.post.id, getServiceProviderId()).then(() => {
+            router.push({ name: "mainView" });
+        });
+    }
+    return;
 }
 
 </script>
@@ -53,9 +70,9 @@ function handleTakeJob() {
                 </div>
                 <hr>
                 <div class="extra-details">
-                    Special requirements: <b>{{ post.specialRequirements }} </b> <br />
-                    Avalible: <b>{{ post.prefferedDays }}</b> <br />
-                    Hours: <b>{{ post.prefferedInterval }} </b> <br />
+                    Special requirements: <b>{{ post.specialRequirments }} </b> <br />
+                    Avalible: <b>{{ post.preferredDays }}</b> <br />
+                    Hours: <b>{{ post.preferredInterval }} </b> <br />
                 </div>
                 <div class="payment-methods">
                     <PaymentMethod text="Card" :isTrue="post.payCard" />
@@ -71,6 +88,7 @@ function handleTakeJob() {
                     <h5 class="for-address">Address:</h5>
                     <h5 class="address">{{ post.address }}</h5>
                     <span class="created-at"> &#x1F55F; {{ getTimePassed(post.createdAt) }}</span>
+                    <h4 class="price-offer">Offered <b>{{ post.price }}&#8364</b></h4>
                 </div>
                 <button class="take-job-button" v-if="isUserServiceProvider" @click="handleTakeJob()">Take job</button>
             </div>
@@ -152,6 +170,14 @@ function handleTakeJob() {
     color: #FFF;
     font-family: inter;
     font-size: 1.5rem;
+
+}
+
+.price-offer {
+    color: #FFF;
+    font-family: inter;
+    font-weight: 400;
+    font-size: 1.3rem;
 }
 
 .user-phone {

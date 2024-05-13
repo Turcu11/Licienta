@@ -1,11 +1,13 @@
-import {Router} from "express";
-import {Users} from "../db.js";
+import { Router } from "express";
+import { Users } from "../db.js";
 const router = Router();
 
 ///get all the users
-router.get("/all", async (req, res) => { 
+router.get("/all", async (req, res) => {
     try {
-        const users = await Users.findAll();
+        const users = await Users.findAll({
+            attributes: { exclude: ['password'] },
+        });
         res.json(users);
     } catch (err) {
         res.status(500).json({ error: err.message });
@@ -15,7 +17,9 @@ router.get("/all", async (req, res) => {
 ///get user by id
 router.get("/:id", async (req, res) => {
     try {
-        const user = await Users.findByPk(req.params.id);
+        const user = await Users.findByPk(req.params.id, {
+            attributes: { exclude: ['password'] },
+        });
         res.json(user);
     } catch (err) {
         res.status(500).json({ error: err.message });
@@ -25,7 +29,10 @@ router.get("/:id", async (req, res) => {
 ////get user by email
 router.get("/email/:email", async (req, res) => {
     try {
-        const user = await Users.findOne({ where: { email: req.params.email } });
+        const user = await Users.findOne({ 
+            where: { email: req.params.email }, 
+            attributes: { exclude: ['password'] },
+        });
         res.json(user);
     } catch (err) {
         res.status(500).json({ error: err.message });

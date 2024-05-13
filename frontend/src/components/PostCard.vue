@@ -56,7 +56,7 @@ const handleDelete = async () => {
                             <img :src="Delete" alt="Delete">
                         </button>
                     </div>
-                    <h4>Offered: {{ post.priceOffer }}&#8364</h4>
+                    <h4>Offered: {{ post.price }}&#8364</h4>
                     <p>{{ postedAt }}</p>
                 </div>
             </div>

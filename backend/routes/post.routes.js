@@ -1,10 +1,13 @@
-import {Router} from "express";
-import {Posts, Users} from "../db.js";
+import { Router } from "express";
+import { Posts, Users } from "../db.js";
 const router = Router();
 
-router.get("/all", async (req, res) => { 
+router.get("/all-open-posts", async (req, res) => {
     try {
         const posts = await Posts.findAll({
+            where: {
+                isDone: false
+            },
             order: [
                 ['createdAt', 'DESC']
             ],
@@ -15,11 +18,43 @@ router.get("/all", async (req, res) => {
     }
 });
 
+router.get("/all-done-posts", async (req, res) => {
+    try {
+        const posts = await Posts.findAll({
+            where: {
+                isDone: true
+            },
+            order: [
+                ['createdAt', 'DESC']
+            ],
+        });
+
+        const users = await Users.findAll({
+            attributes: { exclude: ['password'] },
+        });
+
+        const postsWithUsers = posts.map(post => {
+            const client = users.find(user => user.id === post.userID);
+            const serviceProvider = users.find(user => user.id === post.serviceProviderID);
+            return {
+                ...post.toJSON(),
+                client,
+                serviceProvider
+            };
+        });
+
+        res.json(postsWithUsers);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
+
 router.get("/:id", async (req, res) => {
     try {
         const post = await Posts.findByPk(req.params.id, {
             include: [{
-                model: Users, //here is an inner join between posts and users to get the user's name and phone
+                model: Users,
                 attributes: ['fullName', 'phone'],
                 required: true
             }]
@@ -32,11 +67,12 @@ router.get("/:id", async (req, res) => {
 
 router.get("/category/:category", async (req, res) => {
     try {
-        const post = await Posts.findAll({ 
+        const post = await Posts.findAll({
             order: [
                 ['createdAt', 'DESC']
             ],
-            where: { category: req.params.category } });
+            where: { category: req.params.category }
+        });
         res.json(post);
     } catch (err) {
         res.status(500).json({ error: err.message });
@@ -48,6 +84,36 @@ router.post("/create", async (req, res) => {
         console.log(req.body);
         const post = await Posts.create(req.body);
         res.json(post);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
+router.put("/update/:id", async (req, res) => {
+    try {
+        const post = await Posts.findByPk(req.params.id);
+        if (post) {
+            await post.update(req.body);
+            res.json({ message: "Post updated", post });
+        } else {
+            res.status(404).json({ message: "Post not found" });
+        }
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
+router.put("/mark-post-as-done/:postId/:serviceProviderId", async (req, res) => {
+    try {
+        const post = await Posts.findByPk(req.params.postId);
+        if (post) {
+            post.isDone = true;
+            post.serviceProviderID = req.params.serviceProviderId;
+            await post.save();
+            res.json({ message: "Post updated", post });
+        } else {
+            res.status(404).json({ message: "Post not found" });
+        }
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
