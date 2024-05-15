@@ -16,7 +16,7 @@ const activeFilters = ref({
 });
 
 const applyFilters = () => {
-filterData.setFilter({...activeFilters.value});
+    filterData.setFilter({ ...activeFilters.value });
 }
 
 const clearFilters = () => {
@@ -31,19 +31,26 @@ const clearFilters = () => {
     });
 }
 </script>
-    
+
 <template>
     <div class="wraper">
         <h1 class="filter-title">Filters</h1>
         <hr class="title-under-line">
         <div class="filters">
-            <FilterLine :currentState="filterData.filter.Electrical" :modelValue=filterData.Electrical filterName="Electrical" v-model="activeFilters.Electrical"/>
-            <FilterLine :currentState="filterData.filter.Pluming" :modelVale="filterData.Pluming" filterName="Pluming" v-model="activeFilters.Pluming"/>
-            <FilterLine :currentState="filterData.filter.Doors" :modelVale="filterData.Doors" filterName="Doors" v-model="activeFilters.Doors"/>
-            <FilterLine :currentState="filterData.filter.Heating" :modelVale="filterData.Heating" filterName="Heating" v-model="activeFilters.Heating"/>
-            <FilterLine :currentState="filterData.filter.Garden" :modelVale="filterData.Garden" filterName="Garden" v-model="activeFilters.Garden"/>
-            <FilterLine :currentState="filterData.filter.Furniture" :modelVale="filterData.Furniture" filterName="Furniture" v-model="activeFilters.Furniture"/>
-            <FilterLine :currentState="filterData.filter.Other" :modelVale="filterData.Other" filterName="Other" v-model="activeFilters.Other"/>
+            <FilterLine :currentState="filterData.filter.Electrical" :modelValue=filterData.Electrical
+                filterName="Electrical" v-model="activeFilters.Electrical" />
+            <FilterLine :currentState="filterData.filter.Pluming" :modelVale="filterData.Pluming" filterName="Pluming"
+                v-model="activeFilters.Pluming" />
+            <FilterLine :currentState="filterData.filter.Doors" :modelVale="filterData.Doors" filterName="Doors"
+                v-model="activeFilters.Doors" />
+            <FilterLine :currentState="filterData.filter.Heating" :modelVale="filterData.Heating" filterName="Heating"
+                v-model="activeFilters.Heating" />
+            <FilterLine :currentState="filterData.filter.Garden" :modelVale="filterData.Garden" filterName="Garden"
+                v-model="activeFilters.Garden" />
+            <FilterLine :currentState="filterData.filter.Furniture" :modelVale="filterData.Furniture"
+                filterName="Furniture" v-model="activeFilters.Furniture" />
+            <FilterLine :currentState="filterData.filter.Other" :modelVale="filterData.Other" filterName="Other"
+                v-model="activeFilters.Other" />
         </div>
         <button @click="applyFilters" class="apply-button"> Apply Filter </button>
         <!-- <button @click="clearFilters" class="clear-button"> Clear Filters </button> -->
@@ -57,11 +64,13 @@ const clearFilters = () => {
     align-items: center;
     margin-top: 0.5rem;
 }
-.filters{
+
+.filters {
     display: flex;
     flex-direction: column;
     justify-content: center;
 }
+
 .title-under-line {
     width: 7.5rem;
     height: 0.0625rem;
@@ -79,7 +88,8 @@ const clearFilters = () => {
     line-height: normal;
 }
 
-.apply-button, .clear-button {
+.apply-button,
+.clear-button {
     margin-top: 1rem;
     width: 10rem;
     height: 2.5rem;

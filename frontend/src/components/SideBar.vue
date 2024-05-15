@@ -13,11 +13,25 @@ const isUserLogedIn = () => {
     }
 };
 
+const isUserServiceProvider = () => {
+    if (!isUserLogedIn()) return false;
+    const user = JSON.parse(localStorage.getItem('user'));
+    return user.isServiceProvider;
+};
+
 const haddleMyPosts = () => {
     if (filterStore.myPosts) {
         filterStore.setMyPosts(false);
     } else {
         filterStore.setMyPosts(true);
+    }
+};
+
+const handleDoneByMe = () => {
+    if (filterStore.doneByMe) {
+        filterStore.setDoneByMe(null);
+    } else {
+        filterStore.setDoneByMe(JSON.parse(localStorage.getItem('user')).id);
     }
 };
 
@@ -31,6 +45,9 @@ const haddleMyPosts = () => {
         <Filters/>
         <div v-if="isUserLogedIn()" class="my-posts">
             <button class="my-posts-button" :class="{'my-posts-button-active': filterStore.myPosts && filterStore.allFiltersOff}" @click="haddleMyPosts()">Posted by me</button>
+        </div>
+        <div v-if="isUserServiceProvider()">
+            <button class="my-posts-button" :class="{'my-posts-button-active': filterStore.doneByMe && filterStore.allFiltersOff}" @click="handleDoneByMe()" >Done by me</button>
         </div>
     </div>
 </template>

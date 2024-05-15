@@ -43,6 +43,11 @@ onUnmounted(() => {
 
 const filterResults = () => {
     if (filterData.allFiltersOff) {
+        if (filterData.doneByMe) {
+            filterData.posts = postsData.getAllPostsDoneByMe(JSON.parse(localStorage.getItem('user')).id);
+            results.value = filterData.posts.length;
+            return;
+        }
         if (filterData.myPosts) {
             filterData.posts = postsData.posts.filter(post => {
                 return post.userID === JSON.parse(localStorage.getItem('user')).id;

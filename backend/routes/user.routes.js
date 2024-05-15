@@ -26,12 +26,11 @@ router.get("/:id", async (req, res) => {
     }
 });
 
-////get user by email
+///get user by email
 router.get("/email/:email", async (req, res) => {
     try {
         const user = await Users.findOne({ 
             where: { email: req.params.email }, 
-            attributes: { exclude: ['password'] },
         });
         res.json(user);
     } catch (err) {

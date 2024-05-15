@@ -42,20 +42,57 @@ router.get("/all-done-posts", async (req, res) => {
                 serviceProvider
             };
         });
-
+        if (postsWithUsers.length === 0) {
+            res.json({ message: "No completed posts found" });
+            return;
+        }
         res.json(postsWithUsers);
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
 });
 
+router.get("/all-done-posts/:serviceProviderId", async (req, res) => {
+    try {
+        const posts = await Posts.findAll({
+            where: {
+                isDone: true,
+                serviceProviderID: req.params.serviceProviderId
+            },
+            order: [
+                ['createdAt', 'DESC']
+            ],
+        });
+
+        const users = await Users.findAll({
+            attributes: { exclude: ['password'] },
+        });
+
+        const postsWithUsers = posts.map(post => {
+            const client = users.find(user => user.id === post.userID);
+            const serviceProvider = users.find(user => user.id === post.serviceProviderID);
+            return {
+                ...post.toJSON(),
+                client,
+                serviceProvider
+            };
+        });
+        if (postsWithUsers.length === 0) {
+            res.json({ message: `No completed posts found for the service provider with the id: ${req.params.serviceProviderId}` });
+            return;
+        }
+        res.json(postsWithUsers);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
 
 router.get("/:id", async (req, res) => {
     try {
         const post = await Posts.findByPk(req.params.id, {
             include: [{
                 model: Users,
-                attributes: ['fullName', 'phone'],
+                attributes: ['fullName', 'phone', 'rating'],
                 required: true
             }]
         });

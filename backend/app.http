@@ -15,7 +15,9 @@ GET http://127.0.0.1:3000/posts/all-open-posts
 ###
 GET http://127.0.0.1:3000/posts/all-done-posts
 ###
-GET http://127.0.0.1:3000/posts/1
+GET http://127.0.0.1:3000/posts/all-done-posts/22
+###
+GET http://127.0.0.1:3000/posts/33
 ###
 GET http://127.0.0.1:3000/posts/category/Pluming
 ###

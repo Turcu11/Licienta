@@ -83,6 +83,8 @@ function handleTakeJob() {
                 <div class="left-container">
                     <h3 class="posted-by">Posted by:</h3>
                     <h1 class="user-name">{{ user.fullName }}</h1>
+                    <span v-if="user.rating" class="rating">Rating {{ user.rating }}/5&#9733;</span>
+                    <span v-if="!user.rating" class="rating">Client not rated yet</span>
                     <h1 v-if="isUserLoggedIn" class="user-phone">&#9742; {{ user.phone }}</h1>
                     <h1 v-if="!isUserLoggedIn" class="user-phone">&#9742; Log in to see the phone number !</h1>
                     <h5 class="for-address">Address:</h5>
@@ -159,7 +161,7 @@ function handleTakeJob() {
     }
 }
 
-.posted-by {
+.posted-by, .rating {
     color: hsla(0, 0%, 100%, 0.75);
     font-family: inter;
     margin-bottom: 0px;
@@ -167,6 +169,7 @@ function handleTakeJob() {
 }
 
 .user-name {
+    margin-bottom: 5px;
     color: #FFF;
     font-family: inter;
     font-size: 1.5rem;
@@ -248,7 +251,6 @@ function handleTakeJob() {
     width: 75rem;
     height: 35rem;
     border-radius: 1.25rem;
-    // padding-right: 10px;
     overflow: hidden;
     background-color: #484848;
 }

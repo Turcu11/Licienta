@@ -6,6 +6,7 @@ export const useFilterData = defineStore('filterData', {
         filter: ref([]),
         posts: ref([]),
         myPosts: ref(null),
+        doneByMe: ref(null),
         error: ref(null)
     }),
     actions: {
@@ -27,6 +28,12 @@ export const useFilterData = defineStore('filterData', {
         getMyPosts() {
             return this.myPosts;
         },
+        setDoneByMe(doneByMe) {
+            this.doneByMe = doneByMe;
+        },
+        getDoneByMe() {
+            return this.doneByMe;
+        }
     },
     getters: {
         allFiltersOff() {

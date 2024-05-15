@@ -1,10 +1,12 @@
 <script setup>
 import { ref, watch, computed } from 'vue'
+import { useRouter } from 'vue-router'
 import { usePostsData } from '../stores/postsData.js'
 import { storage } from '../../utils/dbFirebase.js'
 import { ref as firebaseRef, uploadBytesResumable, getDownloadURL, listAll } from "@firebase/storage"
 import PostCardPreview from './PostCardPreview.vue'
 
+const router = useRouter();
 const postsData = usePostsData();
 const currentUser = JSON.parse(localStorage.getItem('user'));
 const imgUrl = ref('');
@@ -50,14 +52,12 @@ const uploadImage = (img) => {
 
     uploadTask.on('state_changed',
         (snapshot) => {
-            // You can use this function to monitor the upload progress
+            // monitor the upload progress
         },
         (error) => {
-            // Handle unsuccessful uploads
             console.error(error);
         },
         () => {
-            // Handle successful uploads on complete
             getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
                 images.value = downloadURL;
                 imgUrl.value = downloadURL;
@@ -75,12 +75,16 @@ const createPost = () => {
         offer.value <= 0 ||
         payCard.value == false &&
         payCash.value == false ||
-        images.value == '' ||
-        imgUrl.value == '') {
+        images.value == '') {
         if (payCard.value == false && payCash.value == false) {
             alert('Please select a payment method!');
             return;
         }
+        else
+            if (imgUrl.value == '') {
+                alert('Please upload an image!');
+            }
+
         alert('Please fill all fields!');
         return;
     }
@@ -109,9 +113,27 @@ const createPost = () => {
     }
 
     postsData.createPost(post);
+    emptyFields();
+    router.push({ name: "mainView" });
 };
 
-const imageLoaded = computed(() => imgUrl.value !== null || imgUrl.value !== undefined || imgUrl.value !== '');
+const emptyFields = () => {
+    title.value = '';
+    description.value = '';
+    address.value = '';
+    category.value = '';
+    specialRequirements.value = '';
+    prefferedInterval.value = '';
+    prefferedDay.value = '';
+    payCard.value = false;
+    payCash.value = false;
+    offer.value = 0;
+    isNegotiable.value = false;
+    images.value = '';
+    imgUrl.value = '';
+};
+
+const imageLoaded = computed(() => imgUrl.value !== null && imgUrl.value !== undefined && imgUrl.value !== '');
 
 </script>
 
@@ -178,7 +200,7 @@ const imageLoaded = computed(() => imgUrl.value !== null || imgUrl.value !== und
                         <input type="file" id="file" @change="onFileChange" style="display: none">
                         <label for="file" class="custom-file-upload">Upload an Image</label>
                     </div>
-                    <button class="create-post-button" @click="createPost">Create Post</button>
+                    <button class="create-post-button" :class="{'imageLoaded': imageLoaded }" :disabled="!imageLoaded" @click="createPost">Create Post</button>
                 </div>
             </div>
             <div class="row-preview">
@@ -231,7 +253,7 @@ body {
 .create-post-button {
     width: 10rem;
     height: 2rem;
-    background-color: #C12323;
+    background-color: #484848;
     border-radius: 2.5rem;
     border: none;
     color: #FFF;
@@ -240,9 +262,21 @@ body {
     font-style: normal;
     font-weight: 600;
     line-height: normal;
+
     &:hover {
         scale: 1.1;
     }
+}
+.create-post-button:disabled {
+    background-color: #484848;
+    cursor: not-allowed;
+    opacity: 0.7;
+    scale: 1;
+}
+
+.imageLoaded{
+    background-color: #C12323;
+
 }
 
 .select-input {
@@ -346,14 +380,15 @@ body {
 .row {
     display: flex;
     flex-direction: row;
-    /* justify-content: space-between; */
 }
+
 .row-preview {
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    @media (max-width: 768px){
+
+    @media (max-width: 768px) {
         display: none;
     }
 }
@@ -406,15 +441,19 @@ body {
     .title {
         width: 13rem;
     }
+
     .address {
         width: 13rem;
     }
+
     .image-upload {
         width: 13rem;
     }
+
     textarea {
         width: 13rem;
     }
+
     input:not([type="checkbox"]) {
         width: 13rem;
     }
@@ -424,15 +463,19 @@ body {
     .title {
         width: 10rem;
     }
+
     .address {
         width: 10rem;
     }
+
     .image-upload {
         width: 10rem;
     }
+
     textarea {
         width: 10rem;
     }
+
     input:not([type="checkbox"]) {
         width: 10rem;
     }
@@ -442,48 +485,59 @@ body {
     .title {
         width: 8rem;
     }
+
     .address {
         width: 8rem;
     }
+
     .image-upload {
         width: 8rem;
     }
+
     textarea {
         width: 8rem;
     }
+
     input:not([type="checkbox"]) {
         width: 8rem;
     }
 }
 
 @media (max-width: 768px) {
-    .row{
+    .row {
         max-height: 40rem;
         overflow: auto;
         flex-direction: column;
         align-items: center;
     }
-    .create-post-container{
+
+    .create-post-container {
         width: 100%;
         height: 100%;
         overflow: auto;
     }
+
     .title {
         width: 17rem;
     }
+
     .address {
         width: 17rem;
     }
+
     .image-upload {
         width: 17rem;
     }
+
     textarea {
         width: 17rem;
     }
+
     input:not([type="checkbox"]) {
         width: 17rem;
     }
-    .create-post-button{
+
+    .create-post-button {
         margin-bottom: 1.5rem;
         margin-top: .8rem;
     }
@@ -493,15 +547,19 @@ body {
     .title {
         width: 13rem;
     }
+
     .address {
         width: 13rem;
     }
+
     .image-upload {
         width: 13rem;
     }
+
     textarea {
         width: 13rem;
     }
+
     input:not([type="checkbox"]) {
         width: 13rem;
     }

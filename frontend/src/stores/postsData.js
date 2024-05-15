@@ -13,18 +13,37 @@ export const usePostsData = defineStore('postsData', {
                 const response = await axios.get('http://127.0.0.1:3000/posts/all-open-posts');
                 this.posts = response.data;
                 this.error = null;
-                // console.log(this.posts);
             }
             catch (error) {
                 console.error('Failed to get posts:', error);
                 this.error = 'Failed to get posts.';
             }
         },
-
+        
         async getAllDonePosts() {
-
+            try {
+                const response = await axios.get('http://127.0.0.1:3000/posts/all-done-posts');
+                this.posts = response.data;
+                this.error = null;
+            }
+            catch (error) {
+                console.error('Failed to get done posts: ', error);
+                this.error = 'Failed to get done posts.';
+            }
         },
 
+        async getAllPostsDoneByMe(id) {
+            try {
+                const response = await axios.get(`http://127.0.0.1:3000/posts/all-done-posts/${id}`);
+                this.posts = response.data;
+                this.error = null;
+            }
+            catch (error) {
+                console.error('Failed to get done posts:', error);
+                this.error = 'Failed to get done posts.';
+            }
+        },
+        
         async getPostById(id) {
             try {
                 const response = await axios.get(`http://127.0.0.1:3000/posts/${id}`);
