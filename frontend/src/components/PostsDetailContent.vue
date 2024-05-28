@@ -92,7 +92,8 @@ function handleTakeJob() {
                     <span class="created-at"> &#x1F55F; {{ getTimePassed(post.createdAt) }}</span>
                     <h4 class="price-offer">Offered <b>{{ post.price }}&#8364</b></h4>
                 </div>
-                <button class="take-job-button" v-if="isUserServiceProvider" @click="handleTakeJob()">Take job</button>
+                <button class="take-job-button" v-if="isUserServiceProvider && !post.isDone" @click="handleTakeJob()">Take job</button>
+                <button class="job-done" v-if="post.isDone">Already done</button>
             </div>
         </div>
     </div>
@@ -142,7 +143,7 @@ function handleTakeJob() {
 
 }
 
-.take-job-button {
+.take-job-button, .job-done {
     width: 10rem;
     height: 3rem;
     background-color: #C12323;
@@ -158,6 +159,13 @@ function handleTakeJob() {
 
     &:hover {
         transform: scale(1.1);
+    }
+}
+
+.job-done{
+    background-color: #343434;
+    &:hover {
+        transform: scale(1);
     }
 }
 

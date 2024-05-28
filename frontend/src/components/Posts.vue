@@ -16,6 +16,8 @@ onMounted(async () => {
     await postsData.getAllPosts();
     filterData.setPosts(postsData.posts);
     results.value = postsData.posts.length;
+    filterData.doneByMe = null
+    filterData.myPosts = false;
 });
 
 watch(() => (filterData.filter || filterData.myPosts), () => {
@@ -41,11 +43,12 @@ onUnmounted(() => {
     window.removeEventListener('resize', updateScreenSize);
 });
 
-const filterResults = () => {
+const filterResults = async () => {
     if (filterData.allFiltersOff) {
         if (filterData.doneByMe) {
-            filterData.posts = postsData.getAllPostsDoneByMe(JSON.parse(localStorage.getItem('user')).id);
-            results.value = filterData.posts.length;
+            filterData.posts = filterData.getAllPostsDoneByMe(filterData.doneByMe).then(() => {
+                results.value = filterData.posts.length;
+            });
             return;
         }
         if (filterData.myPosts) {

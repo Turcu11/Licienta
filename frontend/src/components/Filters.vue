@@ -53,7 +53,6 @@ const clearFilters = () => {
                 v-model="activeFilters.Other" />
         </div>
         <button @click="applyFilters" class="apply-button"> Apply Filter </button>
-        <!-- <button @click="clearFilters" class="clear-button"> Clear Filters </button> -->
     </div>
 </template>
 

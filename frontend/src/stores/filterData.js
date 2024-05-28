@@ -1,5 +1,6 @@
 import {ref} from 'vue'
 import {defineStore} from 'pinia'
+import axios from 'axios'
 
 export const useFilterData = defineStore('filterData', {
     state: () => ({
@@ -33,7 +34,18 @@ export const useFilterData = defineStore('filterData', {
         },
         getDoneByMe() {
             return this.doneByMe;
-        }
+        },
+        async getAllPostsDoneByMe(id) {
+            try {
+                const response = await axios.get(`http://127.0.0.1:3000/posts/all-done-posts/${id}`);
+                this.posts = response.data;
+                this.error = null;
+            }
+            catch (error) {
+                console.error('Failed to get done posts:', error);
+                this.error = 'Failed to get done posts.';
+            }
+        },
     },
     getters: {
         allFiltersOff() {

@@ -78,7 +78,7 @@ router.get("/all-done-posts/:serviceProviderId", async (req, res) => {
             };
         });
         if (postsWithUsers.length === 0) {
-            res.json({ message: `No completed posts found for the service provider with the id: ${req.params.serviceProviderId}` });
+            res.json([]);
             return;
         }
         res.json(postsWithUsers);

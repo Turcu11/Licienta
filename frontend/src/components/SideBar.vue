@@ -24,6 +24,7 @@ const haddleMyPosts = () => {
         filterStore.setMyPosts(false);
     } else {
         filterStore.setMyPosts(true);
+        filterStore.setDoneByMe(null);
     }
 };
 
@@ -32,6 +33,7 @@ const handleDoneByMe = () => {
         filterStore.setDoneByMe(null);
     } else {
         filterStore.setDoneByMe(JSON.parse(localStorage.getItem('user')).id);
+        filterStore.setMyPosts(false);
     }
 };
 
